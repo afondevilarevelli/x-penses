@@ -17,7 +17,7 @@ export default function AuthenticatedLayout({ children }) {
                 readOnly
             />
             <div className="drawer-content flex flex-col">
-                <Navbar user={user} />
+                <Navbar />
 
                 <main className="p-6">{children}</main>
             </div>

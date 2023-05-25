@@ -9,22 +9,21 @@ export default function Edit({ mustVerifyEmail, status }) {
         <AuthenticatedLayout>
             <Head title="Profile" />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+            <div>
+                <div className="mx-auto sm:px-6 lg:px-8 space-y-8">
+                    <div className="p-4 sm:p-8 bg-base-300 shadow rounded-lg">
                         <UpdateProfileInformationForm
                             mustVerifyEmail={mustVerifyEmail}
                             status={status}
-                            className="max-w-xl"
                         />
                     </div>
 
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <UpdatePasswordForm className="max-w-xl" />
+                    <div className="p-4 sm:p-8 bg-base-300 shadow rounded-lg">
+                        <UpdatePasswordForm />
                     </div>
 
-                    <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                        <DeleteUserForm className="max-w-xl" />
+                    <div className="p-4 sm:p-8 bg-base-300 shadow rounded-lg">
+                        <DeleteUserForm />
                     </div>
                 </div>
             </div>

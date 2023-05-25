@@ -19,7 +19,7 @@ export default {
     },
 
     daisyui: {
-        themes: ["night"],
+        themes: ["night", "lofi"],
       },
 
     plugins: [forms, require("daisyui")],

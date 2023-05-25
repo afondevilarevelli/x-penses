@@ -1,10 +1,5 @@
 import { useEffect } from "react";
-import Checkbox from "@/Components/Checkbox";
 import GuestLayout from "@/Layouts/GuestLayout";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Login({ status, canResetPassword }) {
@@ -114,6 +109,12 @@ export default function Login({ status, canResetPassword }) {
                         Log in
                     </button>
                 </div>
+
+                <Link href={route("register")}>
+                    <button className="btn btn-xs btn-link underline mt-6">
+                        Create a user
+                    </button>
+                </Link>
             </form>
         </GuestLayout>
     );
