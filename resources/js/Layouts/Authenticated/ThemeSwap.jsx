@@ -1,4 +1,4 @@
-import useAppContext from "@/contexts/AppContext";
+import useAppContext, { DARK_THEME } from "@/contexts/AppContext";
 import React from "react";
 import { FaMoon, FaSun } from "react-icons/fa";
 
@@ -8,14 +8,14 @@ export default function ThemeSwap() {
     return (
         <div
             className="tooltip tooltip-left"
-            data-tip={theme == "night" ? "Light mode" : "Dark mode"}
+            data-tip={theme == DARK_THEME ? "Light mode" : "Dark mode"}
         >
             <label className="swap swap-rotate">
                 <input
                     type="checkbox"
                     className="hidden"
                     onChange={() => toogleTheme()}
-                    checked={theme == "night"}
+                    checked={theme == DARK_THEME}
                 />
 
                 <FaSun className="swap-on w-6 h-6 text-neutral-content" />

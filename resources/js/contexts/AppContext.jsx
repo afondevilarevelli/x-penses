@@ -2,17 +2,20 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { useScrollLock } from "@/hooks/useScrollLock";
 import React, { useContext, useEffect, useState } from "react";
 
+export const DARK_THEME = "night";
+export const LIGHT_THEME = "lofi";
+
 export const AppContext = React.createContext({
     sidebarOpened: false,
     toogleSidebar: () => {},
-    theme: "night",
+    theme: DARK_THEME,
     toogleTheme: () => {},
 });
 
 export function AppProvider({ children }) {
     const [sidebarOpened, setSidebarOpened] = useState(false);
 
-    const [theme, setTheme] = useLocalStorage("theme", "night");
+    const [theme, setTheme] = useLocalStorage("theme", DARK_THEME);
 
     const { lockScroll, unlockScroll } = useScrollLock();
 
@@ -22,7 +25,11 @@ export function AppProvider({ children }) {
 
     function toogleTheme() {
         setTheme((t) =>
-            t == "night" ? "lofi" : t == "lofi" ? "night" : "night"
+            t == DARK_THEME
+                ? LIGHT_THEME
+                : t == LIGHT_THEME
+                ? DARK_THEME
+                : DARK_THEME
         );
     }
 
