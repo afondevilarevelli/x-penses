@@ -5,10 +5,10 @@ import { useUser } from "@/hooks/useUser";
 
 export default function AuthenticatedLayout({ children }) {
     const user = useUser();
-    const { sidebarOpened } = useAppContext();
+    const { sidebarOpened, theme } = useAppContext();
 
     return (
-        <div className="drawer drawer-mobile">
+        <div className="drawer drawer-mobile" data-theme={theme}>
             <input
                 id="my-drawer-2"
                 type="checkbox"

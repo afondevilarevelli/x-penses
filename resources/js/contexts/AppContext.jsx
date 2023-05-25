@@ -38,12 +38,6 @@ export function AppProvider({ children }) {
         else unlockScroll();
     }, [sidebarOpened]);
 
-    useEffect(() => {
-        document
-            .getElementsByTagName("html")[0]
-            .setAttribute("data-theme", theme);
-    }, [theme]);
-
     return (
         <AppContext.Provider
             value={{
