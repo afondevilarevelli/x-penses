@@ -25,8 +25,6 @@ export default function ProfileDropdown() {
                         <div>{user.name}</div>
                         <div className="opacity-80">{user.email}</div>
                     </div>
-
-                    <FaArrowDown className="text-neutral-content" />
                 </button>
             </span>
             <ul
