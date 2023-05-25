@@ -15,7 +15,7 @@ export default function Navbar({ user }) {
 
     return (
         <nav className="bg-neutral">
-            <div className="mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto px-4 sm:px-6 xl:px-8">
                 <div className="flex justify-between h-16">
                     <label
                         className="swap"

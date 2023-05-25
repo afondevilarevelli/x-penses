@@ -1,9 +1,10 @@
-import ProfileDropdown from "./ProfileDropdown";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import useAppContext, { AppProvider } from "@/contexts/AppContext";
+import { useUser } from "@/hooks/useUser";
 
-export default function Authenticated({ user, header, children }) {
+export default function AuthenticatedLayout({ children }) {
+    const user = useUser();
     const { sidebarOpened } = useAppContext();
 
     return (
@@ -13,6 +14,7 @@ export default function Authenticated({ user, header, children }) {
                 type="checkbox"
                 className="drawer-toggle"
                 checked={sidebarOpened}
+                readOnly
             />
             <div className="drawer-content flex flex-col">
                 <Navbar user={user} />
