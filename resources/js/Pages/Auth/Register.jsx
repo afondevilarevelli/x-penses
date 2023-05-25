@@ -1,29 +1,29 @@
-import { useEffect } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { useEffect } from "react";
+import GuestLayout from "@/Layouts/GuestLayout";
+import InputError from "@/Components/InputError";
+import InputLabel from "@/Components/InputLabel";
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
+import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
+        name: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
     });
 
     useEffect(() => {
         return () => {
-            reset('password', 'password_confirmation');
+            reset("password", "password_confirmation");
         };
     }, []);
 
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('register'));
+        post(route("register"));
     };
 
     return (
@@ -31,85 +31,112 @@ export default function Register() {
             <Head title="Register" />
 
             <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
-
-                    <TextInput
-                        id="name"
-                        name="name"
+                <div className="form-control">
+                    <label className="label">
+                        <span className="label-text">Name</span>
+                    </label>
+                    <input
+                        type="text"
+                        className={`input ${
+                            errors.name ? "input-error" : "input-bordered"
+                        }`}
                         value={data.name}
-                        className="mt-1 block w-full"
+                        autoFocus
                         autoComplete="name"
-                        isFocused={true}
-                        onChange={(e) => setData('name', e.target.value)}
-                        required
+                        onChange={(e) => setData("name", e.target.value)}
                     />
-
-                    <InputError message={errors.name} className="mt-2" />
+                    {errors.name && (
+                        <label className="label">
+                            <span className="label-text-alt text-error">
+                                {errors.name}
+                            </span>
+                        </label>
+                    )}
                 </div>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
+                <div className="form-control mt-2">
+                    <label className="label">
+                        <span className="label-text">Email</span>
+                    </label>
+                    <input
                         type="email"
-                        name="email"
+                        placeholder="name@domain.com"
+                        className={`input ${
+                            errors.email ? "input-error" : "input-bordered"
+                        }`}
                         value={data.email}
-                        className="mt-1 block w-full"
                         autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
+                        onChange={(e) => setData("email", e.target.value)}
                     />
-
-                    <InputError message={errors.email} className="mt-2" />
+                    {errors.email && (
+                        <label className="label">
+                            <span className="label-text-alt text-error">
+                                {errors.email}
+                            </span>
+                        </label>
+                    )}
                 </div>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
+                <div className="form-control mt-2">
+                    <label className="label">
+                        <span className="label-text">Password</span>
+                    </label>
+                    <input
                         type="password"
-                        name="password"
+                        placeholder="********"
+                        className={`input ${
+                            errors.password ? "input-error" : "input-bordered"
+                        }`}
                         value={data.password}
-                        className="mt-1 block w-full"
                         autoComplete="new-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                        required
+                        onChange={(e) => setData("password", e.target.value)}
                     />
-
-                    <InputError message={errors.password} className="mt-2" />
+                    {errors.password && (
+                        <label className="label">
+                            <span className="label-text-alt text-error">
+                                {errors.password}
+                            </span>
+                        </label>
+                    )}
                 </div>
 
-                <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
-
-                    <TextInput
-                        id="password_confirmation"
+                <div className="form-control mt-2">
+                    <label className="label">
+                        <span className="label-text">Confirm password</span>
+                    </label>
+                    <input
                         type="password"
-                        name="password_confirmation"
+                        placeholder="********"
+                        className={`input ${
+                            errors.password_confirmation
+                                ? "input-error"
+                                : "input-bordered"
+                        }`}
                         value={data.password_confirmation}
-                        className="mt-1 block w-full"
                         autoComplete="new-password"
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
-                        required
+                        onChange={(e) =>
+                            setData("password_confirmation", e.target.value)
+                        }
                     />
-
-                    <InputError message={errors.password_confirmation} className="mt-2" />
+                    {errors.password_confirmation && (
+                        <label className="label">
+                            <span className="label-text-alt text-error">
+                                {errors.password_confirmation}
+                            </span>
+                        </label>
+                    )}
                 </div>
 
-                <div className="flex items-center justify-end mt-4">
-                    <Link
-                        href={route('login')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Already registered?
+                <div className="flex items-center justify-end mt-4 gap-4">
+                    <Link href={route("login")}>
+                        <button className="btn btn-ghost btn-xs underline">
+                            Already registered?
+                        </button>
                     </Link>
 
-                    <PrimaryButton className="ml-4" disabled={processing}>
+                    <button className="btn btn-primary" disabled={processing}>
                         Register
-                    </PrimaryButton>
+                    </button>
                 </div>
             </form>
         </GuestLayout>

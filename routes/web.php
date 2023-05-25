@@ -17,6 +17,9 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
+    if(Auth::check())
+        return to_route('dashboard');
+    
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
