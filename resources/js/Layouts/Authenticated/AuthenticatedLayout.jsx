@@ -1,10 +1,8 @@
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import useAppContext, { AppProvider } from "@/contexts/AppContext";
-import { useUser } from "@/hooks/useUser";
 
 export default function AuthenticatedLayout({ children }) {
-    const user = useUser();
     const { sidebarOpened, theme } = useAppContext();
 
     return (

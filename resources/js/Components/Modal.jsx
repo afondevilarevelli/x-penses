@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import useAppContext from "@/contexts/AppContext";
 
 export default function Modal({
     children,
@@ -8,6 +9,8 @@ export default function Modal({
     closeable = true,
     onClose = () => {},
 }) {
+    const { theme } = useAppContext();
+
     const close = () => {
         if (closeable) {
             onClose();
@@ -52,6 +55,7 @@ export default function Modal({
                     leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
                     <Dialog.Panel
+                        data-theme={theme}
                         className={`mb-6 bg-base-100 rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
                     >
                         {children}
