@@ -8,8 +8,8 @@ export default function Dashboard({}) {
 
             <div>
                 <div className="max-w-7xl mx-auto ">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">Dashboard!</div>
+                    <div className="bg-base-300 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div className="p-6">Dashboard!</div>
                     </div>
                 </div>
             </div>
