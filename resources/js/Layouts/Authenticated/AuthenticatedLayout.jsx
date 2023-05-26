@@ -1,6 +1,7 @@
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 import useAppContext, { AppProvider } from "@/contexts/AppContext";
+import ToastsWatcher from "../ToastsWatcher";
 
 export default function AuthenticatedLayout({ children }) {
     const { sidebarOpened, theme } = useAppContext();
@@ -15,6 +16,8 @@ export default function AuthenticatedLayout({ children }) {
                 readOnly
             />
             <div className="drawer-content flex flex-col min-h-screen">
+                <ToastsWatcher />
+
                 <Navbar />
 
                 <main className="p-6 flex-1">{children}</main>
