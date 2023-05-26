@@ -12,7 +12,7 @@ export default function ConfirmationPopover({ children, onConfirm }) {
             {!clicked && (
                 <div
                     tabIndex={0}
-                    className="dropdown-content menu p-4 shadow bg-base-300 rounded-box space-y-4"
+                    className="dropdown-content menu p-4 w-fit shadow bg-base-300 rounded-box space-y-4"
                 >
                     <div className="text-lg">Are you sure?</div>
 
