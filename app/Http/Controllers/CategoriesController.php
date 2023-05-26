@@ -12,7 +12,7 @@ class CategoriesController extends Controller
     {
         $user_and_public_categories = Auth::user()->getAllCategories();
 
-        return inertia('Categories', [
+        return inertia('Categories/Index', [
             "categories" => $user_and_public_categories
         ]);
     }

@@ -1,17 +1,29 @@
 import Icon from "@/Components/Icon";
+import Modal from "@/Components/Modal";
 import Table from "@/Components/Table";
 import AuthenticatedLayout from "@/Layouts/Authenticated/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-import React from "react";
+import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import CategoryForm from "./Partials/CategoryForm";
 
 export default function Categories({ categories }) {
+    const [categoryToEdit, setCategoryToEdit] = useState(null);
+    const [categoryFormOpened, setCategoryFormOpened] = useState(false);
+
     function onDeleteCategory(category) {
         console.log("DELETE", category);
     }
 
     function onEditCategory(category) {
         console.log("EDIT", category);
+        setCategoryToEdit(categories.find((c) => c.id == category.id));
+        setCategoryFormOpened(true);
+    }
+
+    function closeModal() {
+        setCategoryFormOpened(false);
+        setCategoryToEdit(null);
     }
 
     return (
@@ -45,6 +57,14 @@ export default function Categories({ categories }) {
                     },
                 ]}
             />
+
+            <Modal
+                show={categoryFormOpened}
+                onClose={closeModal}
+                title={categoryToEdit ? "Edit category" : "Create category"}
+            >
+                <CategoryForm />
+            </Modal>
         </AuthenticatedLayout>
     );
 }

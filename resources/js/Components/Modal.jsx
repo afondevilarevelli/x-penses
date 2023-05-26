@@ -5,6 +5,7 @@ import useAppContext from "@/contexts/AppContext";
 export default function Modal({
     children,
     show = false,
+    title = null,
     maxWidth = "2xl",
     closeable = true,
     onClose = () => {},
@@ -56,8 +57,9 @@ export default function Modal({
                 >
                     <Dialog.Panel
                         data-theme={theme}
-                        className={`mb-6 bg-base-100 rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
+                        className={`mb-6 bg-base-100 rounded-lg px-4 py-2 overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
                     >
+                        {title && <h2 className="text-2xl">{title}</h2>}
                         {children}
                     </Dialog.Panel>
                 </Transition.Child>

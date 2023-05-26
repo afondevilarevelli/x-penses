@@ -14,10 +14,10 @@ export default function AuthenticatedLayout({ children }) {
                 checked={sidebarOpened}
                 readOnly
             />
-            <div className="drawer-content flex flex-col">
+            <div className="drawer-content flex flex-col min-h-screen">
                 <Navbar />
 
-                <main className="p-6">{children}</main>
+                <main className="p-6 flex-1">{children}</main>
             </div>
             <div className="drawer-side ">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>

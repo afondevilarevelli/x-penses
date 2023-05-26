@@ -19,9 +19,8 @@ import ConfirmationPopover from "./ConfirmationPopover";
 
 export default function Table({ data, columns, actions }) {
     return (
-        <div className="overflow-x-auto overflow-y-hidden">
+        <div className="overflow-x-auto no-scrollbar overflow-visible h-fit">
             <table className="table w-full table-zebra">
-                {/* head */}
                 <thead>
                     <tr>
                         {columns.map((column, idx) => (
