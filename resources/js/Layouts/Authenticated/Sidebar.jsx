@@ -1,6 +1,6 @@
 import Logo from "@/Components/Logo";
 import React, { useState } from "react";
-import { FaBackward, FaForward } from "react-icons/fa";
+import { FaBackward, FaForward, FaPlus } from "react-icons/fa";
 import links from "./links";
 import { Link } from "@inertiajs/react";
 import useAppContext from "@/contexts/AppContext";
@@ -21,6 +21,11 @@ export default function Sidebar() {
         >
             <div className="flex flex-col items-center w-full gap-4">
                 <Logo size={sidebarOpened ? 150 : 60} />
+
+                <button className="btn btn-primary btn-wide space-x-2">
+                    <FaPlus className="text-xl" />
+                    {sidebarOpened && <div className="text-2xl">New</div>}
+                </button>
 
                 <ul className="w-full">
                     {links.map((item, idx) => (

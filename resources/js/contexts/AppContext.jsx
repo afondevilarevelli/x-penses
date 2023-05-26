@@ -3,7 +3,7 @@ import { useScrollLock } from "@/hooks/useScrollLock";
 import React, { useContext, useEffect, useState } from "react";
 
 export const DARK_THEME = "night";
-export const LIGHT_THEME = "lofi";
+export const LIGHT_THEME = "cmyk";
 
 export const AppContext = React.createContext({
     sidebarOpened: false,

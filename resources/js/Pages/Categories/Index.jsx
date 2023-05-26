@@ -4,7 +4,7 @@ import Table from "@/Components/Table";
 import AuthenticatedLayout from "@/Layouts/Authenticated/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import React, { useState } from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import CategoryForm from "./Partials/CategoryForm";
 
 export default function Categories({ categories }) {
@@ -30,33 +30,43 @@ export default function Categories({ categories }) {
         <AuthenticatedLayout>
             <Head title="Categories" />
 
-            <Table
-                data={categories.map((c) => ({
-                    id: c.id,
-                    Name: c.name,
-                    Color: (
-                        <div
-                            className={`rounded-full h-6 w-6`}
-                            style={{ backgroundColor: c.color }}
-                        />
-                    ),
-                    Icon: <Icon name={c.icon} />,
-                }))}
-                columns={["Name", "Color", "Icon"]}
-                actions={[
-                    {
-                        label: "Edit",
-                        icon: <FaEdit className="h-6 w-6 text-primary" />,
-                        onClick: onEditCategory,
-                    },
-                    {
-                        label: "Delete",
-                        icon: <FaTrash className="h-6 w-6 text-error" />,
-                        onClick: onDeleteCategory,
-                        needConfirmation: true,
-                    },
-                ]}
-            />
+            <div className="flex flex-col gap-4">
+                <button
+                    className="btn btn-primary self-end space-x-2"
+                    onClick={() => setCategoryFormOpened(true)}
+                >
+                    <div>Create</div>
+                    <FaPlus />
+                </button>
+
+                <Table
+                    data={categories.map((c) => ({
+                        id: c.id,
+                        Name: c.name,
+                        Color: (
+                            <div
+                                className={`rounded-full h-6 w-6`}
+                                style={{ backgroundColor: c.color }}
+                            />
+                        ),
+                        Icon: <Icon name={c.icon} />,
+                    }))}
+                    columns={["Name", "Color", "Icon"]}
+                    actions={[
+                        {
+                            label: "Edit",
+                            icon: <FaEdit className="h-6 w-6 text-primary" />,
+                            onClick: onEditCategory,
+                        },
+                        {
+                            label: "Delete",
+                            icon: <FaTrash className="h-6 w-6 text-error" />,
+                            onClick: onDeleteCategory,
+                            needConfirmation: true,
+                        },
+                    ]}
+                />
+            </div>
 
             <Modal
                 show={categoryFormOpened}
