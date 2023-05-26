@@ -5,17 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CreditCard extends Model
+class Category extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "description",
+        "name",
         "color",
-        "close_day",
-        "expire_day",
-        "limit",
-        // "type_id",
-        // "account_id"
+        "icon",
+        // "user_id"
     ];
 }

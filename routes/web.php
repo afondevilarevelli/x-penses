@@ -23,9 +23,9 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    if(Auth::check())
+    if (Auth::check())
         return to_route('dashboard');
-    
+
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
@@ -54,4 +54,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

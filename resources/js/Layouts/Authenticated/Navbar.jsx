@@ -27,9 +27,9 @@ export default function Navbar() {
                         <FaTimes className="swap-on h-6 w-6 text-neutral-content" />
                         <FaBars className="swap-off h-6 w-6 text-neutral-content" />
                     </label>
-
                     <div className="flex items-center ml-6">
                         <ThemeSwap />
+
                         <div className="ml-6">
                             <ProfileDropdown />
                         </div>
