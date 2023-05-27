@@ -53,9 +53,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Category::class);
     }
-
-    public function getAllCategories()
-    {
-        return Category::where('user_id', null)->orWhere('user_id', $this->id)->get();
-    }
 }

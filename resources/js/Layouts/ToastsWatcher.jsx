@@ -42,13 +42,15 @@ export default function ToastsWatcher() {
                         <CloseIcon />
                     </div>
                 </div>
-            ) : (
+            ) : flash.error ? (
                 <div className="alert alert-error">
                     <div>
                         <span>{flash.error}</span>
                         <CloseIcon />
                     </div>
                 </div>
+            ) : (
+                <></>
             )}
         </div>
     );

@@ -52,6 +52,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/reports', [ReportsController::class, 'index'])->name('reports.index');
 
     Route::get('/categories', [CategoriesController::class, 'index'])->name('categories.index');
+    Route::post('/categories', [CategoriesController::class, 'create'])->name('categories.create');
+    Route::put('/categories/{id}', [CategoriesController::class, 'update'])->name('categories.update');
+    Route::delete('/categories/{id}', [CategoriesController::class, 'delete'])->name('categories.delete');
 });
 
 require __DIR__ . '/auth.php';

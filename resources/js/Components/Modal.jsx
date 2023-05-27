@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import useAppContext from "@/contexts/AppContext";
+import { FaTimes } from "react-icons/fa";
 
 export default function Modal({
     children,
@@ -57,10 +58,19 @@ export default function Modal({
                 >
                     <Dialog.Panel
                         data-theme={theme}
-                        className={`mb-6 bg-base-100 rounded-lg px-4 py-2 overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
+                        className={`mb-6 bg-base-100 rounded-lg p-4 overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
                     >
-                        {title && <h2 className="text-2xl">{title}</h2>}
-                        {children}
+                        <div className="flex justify-between">
+                            {title && <h2 className="text-2xl">{title}</h2>}
+                            <button
+                                className="btn btn-circle btn-outline btn-sm"
+                                onClick={() => close()}
+                            >
+                                <FaTimes />
+                            </button>
+                        </div>
+
+                        <div className="px-6"> {children}</div>
                     </Dialog.Panel>
                 </Transition.Child>
             </Dialog>
