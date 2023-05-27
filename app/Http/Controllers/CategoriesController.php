@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateCategoryRequest;
-use App\Http\Requests\EditCategoryRequest;
+use App\Http\Requests\Categories\CreateCategoryRequest;
+use App\Http\Requests\Categories\EditCategoryRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Exception;
 use Response;
 
 class CategoriesController extends Controller
 {
     public function index()
     {
-        $user_categories = Auth::user()->categories()->get();
+        $user_categories = auth()->user()->categories()->get();
 
         return inertia('Categories/Index', [
             "categories" => $user_categories
@@ -24,34 +23,44 @@ class CategoriesController extends Controller
     {
         $validated = $request->validated();
 
-        Category::create([...$validated, 'user_id' => auth()->user()->id]);
-
-        session()->flash("success", "Category '" . $validated['name'] . "' created succesfully");
+        try {
+            Category::create([...$validated, 'user_id' => auth()->user()->id]);
+            session()->flash("success", "Category '" . $validated['name'] . "' created succesfully");
+        } catch (Exception $e) {
+            session()->flash("error", "Error while creating category '" . $validated['name'] . "'");
+        }
 
         return redirect(route('categories.index'));
     }
 
     public function update(EditCategoryRequest $request, Category $category)
     {
-        $validated = $request->validated();
-
-        $category->update($validated);
-
-        session()->flash("success", "Category '" . $validated['name'] . "' updated succesfully");
+        try {
+            $validated = $request->validated();
+            $category->update($validated);
+            session()->flash("success", "Category '" . $validated['name'] . "' updated succesfully");
+        } catch (Exception $e) {
+            session()->flash("error", "Error while updating category '" . $category['name'] . "'");
+        }
 
         return redirect(route('categories.index'));
     }
 
-    public function delete(Category $category)
+    public function delete($id)
     {
-        if ($category->user_id != auth()->user()->id)
-            return Response::denyWithStatus(401);
+        $category = Category::where('id', '=', $id)->where('user_id', '=', auth()->user()->id)->first();
+
+        if (!$category)
+            return response('Unauthorized', 401);
 
         $name = $category->name;
 
-        $category->delete();
-
-        session()->flash("success", "Category '" . $name . "' deleted succesfully");
+        try {
+            $category->delete();
+            session()->flash("success", "Category '" . $name . "' deleted succesfully");
+        } catch (Exception $e) {
+            session()->flash("error", "Error while deleting category '" . $name . "'");
+        }
 
         return redirect(route('categories.index'));
     }

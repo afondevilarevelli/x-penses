@@ -14,7 +14,7 @@ class Category extends Model
         "name",
         "color",
         "icon",
-        // "user_id"
+        "user_id"
     ];
 
     public static function CreateDefaults(User $user)

@@ -17,9 +17,9 @@ class Transaction extends Model
         "date",
         "notes",
         "currency",
-        // "account_id",
-        // "credit_card_id",
-        // "category_id",
+        "account_id",
+        "credit_card_id",
+        "category_id",
     ];
 
     public function creditCard(): HasOne

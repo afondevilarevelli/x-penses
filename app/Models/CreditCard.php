@@ -16,8 +16,8 @@ class CreditCard extends Model
         "close_day",
         "expire_day",
         "limit",
-        // "type_id",
-        // "account_id"
+        "type_id",
+        "account_id"
     ];
 
     public function type(): HasOne

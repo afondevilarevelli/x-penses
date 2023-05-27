@@ -9,8 +9,7 @@ export default function ColorPicker({ color = "#fffff", onChange }) {
             <input
                 type="text"
                 value={color}
-                className={`input w-full transition-opacity input-bordered relative after:content-[''] after:absolute after:right-6 
-                after:bottom-1/2 after:translate-y-1/2 after:w-6 after:h-6 after:bg-red-300`}
+                className={`input w-full transition-opacity input-bordered`}
                 onClick={() => setShow((s) => !s)}
                 style={{ opacity: show ? 0.5 : 1 }}
             />

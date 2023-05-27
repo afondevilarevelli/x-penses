@@ -14,8 +14,8 @@ class Account extends Model
     protected $fillable = [
         "number",
         "color",
-        // "bank_id",
-        // "user_id"
+        "bank_id",
+        "user_id"
     ];
 
     public function creditCards(): HasMany

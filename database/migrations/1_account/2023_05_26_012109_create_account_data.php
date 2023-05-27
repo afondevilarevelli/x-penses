@@ -12,20 +12,20 @@ return new class extends Migration {
     {
         Schema::create('banks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('image')->nullable();
+            $table->string('name', 50);
+            $table->string('image', 150)->nullable();
         });
 
         Schema::create('credit_card_types', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('image')->nullable();
+            $table->string('name', 50);
+            $table->string('image', 150)->nullable();
         });
 
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('number');
-            $table->string('color')->nullable();
+            $table->string('number', 50);
+            $table->string('color', 30)->nullable();
 
             $table->foreignId('bank_id')->constrained('banks')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
@@ -33,11 +33,11 @@ return new class extends Migration {
 
         Schema::create('credit_cards', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
-            $table->string('color')->nullable();
+            $table->string('description', 100);
+            $table->string('color', 30)->nullable();
             $table->unsignedTinyInteger('close_day');
             $table->unsignedTinyInteger('expire_day');
-            $table->unsignedDecimal('limit');
+            $table->unsignedDecimal('limit', 10);
 
             $table->foreignId('type_id')->constrained('credit_card_types')->onDelete('cascade');
             $table->foreignId('account_id')->constrained('accounts')->onDelete('cascade');

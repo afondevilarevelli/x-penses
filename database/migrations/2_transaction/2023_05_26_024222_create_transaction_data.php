@@ -12,21 +12,21 @@ return new class extends Migration {
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('color')->nullable();
-            $table->string('icon')->nullable();
+            $table->string('name', 50);
+            $table->string('color', 30)->nullable();
+            $table->string('icon', 50)->nullable();
 
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
 
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedDecimal('amount');
-            $table->string('description')->nullable();
+            $table->unsignedDecimal('amount', 10);
+            $table->string('description', 100)->nullable();
             $table->enum('type', ["INGRESS", "EGRESS", "CREDIT_CARD_EXPENSE"]);
             $table->date('date');
-            $table->string('notes')->nullable();
-            $table->string('currency');
+            $table->string('notes', 100)->nullable();
+            $table->string('currency', 15);
 
             $table->foreignId('account_id')->nullable()->constrained('accounts')->onDelete('cascade');
             $table->foreignId('credit_card_id')->nullable()->constrained('credit_cards')->onDelete('cascade');
