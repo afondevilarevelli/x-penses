@@ -19,7 +19,7 @@ import ConfirmationPopover from "./ConfirmationPopover";
 
 export default function Table({ data, columns, actions }) {
     return (
-        <div className="overflow-x-auto no-scrollbar overflow-visible h-fit">
+        <div className="overflow-x-auto">
             <table className="table w-full table-zebra">
                 <thead>
                     <tr>
@@ -38,7 +38,7 @@ export default function Table({ data, columns, actions }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((item) => (
+                    {data.map((item, idx) => (
                         <tr key={item.id}>
                             {columns.map((column, idx) => (
                                 <td key={idx}>{item[column]}</td>
@@ -46,9 +46,9 @@ export default function Table({ data, columns, actions }) {
 
                             <td>
                                 <div className="flex gap-4">
-                                    {actions.map((action, idx) => (
+                                    {actions.map((action, actionIdx) => (
                                         <div
-                                            key={idx}
+                                            key={actionIdx}
                                             className="tooltip cursor-pointer"
                                             data-tip={action.label}
                                         >
@@ -57,6 +57,11 @@ export default function Table({ data, columns, actions }) {
                                                     onConfirm={() =>
                                                         action.onClick(item)
                                                     }
+                                                    className={`dropdown-left xl:dropdown-right ${
+                                                        idx < 2
+                                                            ? "dropdown-start"
+                                                            : "dropdown-end"
+                                                    }`}
                                                 >
                                                     {action.icon}
                                                 </ConfirmationPopover>

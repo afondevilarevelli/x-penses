@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 
-export default function ConfirmationPopover({ children, onConfirm }) {
+export default function ConfirmationPopover({
+    children,
+    onConfirm,
+    className = "",
+}) {
     const [clicked, setClicked] = useState(false);
 
     return (
-        <div className="dropdown dropdown-left xl:dropdown-right">
+        <div className={"dropdown " + className}>
             <div tabIndex={0} onClick={() => setClicked(false)}>
                 {children}
             </div>
