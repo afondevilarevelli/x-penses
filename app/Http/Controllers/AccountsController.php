@@ -31,7 +31,6 @@ class AccountsController extends Controller
         $amount = $request->validated()['amount'];
         $validated = Arr::except($request->validated(), ['amount']);
 
-
         try {
             DB::beginTransaction();
 
@@ -62,9 +61,26 @@ class AccountsController extends Controller
 
     public function update(EditAccountRequest $request, Account $account)
     {
+        $amount = $request->validated()['amount'];
+        $validated = Arr::except($request->validated(), ['amount']);
+
         try {
-            $validated = $request->validated();
             $account->update($validated);
+
+            $currentAmount = $account->getAmount();
+            $diff = $currentAmount - $amount;
+
+            if ($diff != 0) {
+                Transaction::insert([
+                    "amount" => abs($diff),
+                    "description" => 'Modify account amount',
+                    "type" => $amount > $currentAmount ? "INGRESS" : 'EGRESS',
+                    "date" => Carbon::now(),
+                    "currency" => "USD",
+                    "account_id" => $account->id
+                ]);
+            }
+
             session()->flash("success", "Account '" . $validated['name'] . "' updated succesfully");
         } catch (Exception $e) {
             session()->flash("error", "Error while updating account '" . $account['name'] . "'");

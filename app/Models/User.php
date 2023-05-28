@@ -57,14 +57,12 @@ class User extends Authenticatable
 
     public function getAccountsWithData()
     {
-        $accounts_with_data = DB::table('accounts')->where('user_id', '=', auth()->user()->id)
-            ->join('transactions', 'accounts.id', '=', 'transactions.account_id')
-            ->selectRaw(
-                "accounts.*, " .
-                "SUM(CASE WHEN type = 'INGRESS' THEN transactions.amount ELSE -1*transactions.amount END) AS amount"
-            )
-            ->groupBy('accounts.id')->get();
+        $user_accounts = $this->accounts()->get();
 
-        return $accounts_with_data;
+        foreach ($user_accounts as $account) {
+            $account['amount'] = $account->getAmount();
+        }
+
+        return $user_accounts;
     }
 }
