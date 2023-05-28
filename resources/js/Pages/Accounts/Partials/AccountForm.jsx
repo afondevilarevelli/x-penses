@@ -20,7 +20,7 @@ export default function AccountForm({
         processing,
         recentlySuccessful,
     } = useForm({
-        amount: "",
+        amount: account ? account.amount : "",
         name: account ? account.name : "",
         color: account ? account.color : "#00B9FF",
         bank_id: account ? account.bank_id : "",

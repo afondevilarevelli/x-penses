@@ -27,7 +27,8 @@ export default function NumberInput({
                             e.key != "Delete" &&
                             e.key != "Backspace" &&
                             e.key != "ArrowLeft" &&
-                            e.key != "ArrowRight"
+                            e.key != "ArrowRight" &&
+                            e.key != "-"
                         )
                             e.preventDefault();
                     }}

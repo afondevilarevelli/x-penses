@@ -38,11 +38,11 @@ class AccountsController extends Controller
             $accountCreated = new Account([...$validated, 'user_id' => auth()->user()->id]);
             $accountCreated->save();
 
-            if ($amount > 0) {
+            if ($amount != 0) {
                 Transaction::insert([
-                    "amount" => $amount,
+                    "amount" => abs($amount),
                     "description" => 'Initial account amount',
-                    "type" => "INGRESS",
+                    "type" => $amount > 0 ? "INGRESS" : 'EGRESS',
                     "date" => Carbon::now(),
                     "currency" => "USD",
                     "account_id" => $accountCreated->id
