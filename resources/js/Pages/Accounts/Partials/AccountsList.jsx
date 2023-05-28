@@ -12,7 +12,7 @@ const AccountListItem = ({ account }) => {
     return (
         <div
             key={account.id}
-            className="card w-96 h-56 bg-base-200 shadow-xl"
+            className="card w-80 h-56 bg-base-200 shadow-xl"
             style={{ backgroundColor: account.color + "33" }}
         >
             <div className="card-body p-6">
@@ -68,11 +68,9 @@ export default function AccountsList({ accounts }) {
 
     return (
         <div>
-            <h1 className="text-4xl mb-4">Accounts</h1>
-
-            <div className="grid grid-cols-1 mx-auto lg:mx-0 w-fit lg:grid-cols-2 xl:grid-cols-3 space-x-4 space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 space-x-4 space-y-4 w-fit">
                 <div
-                    className="card w-96 h-56 bg-base-200 shadow-xl mt-4 ml-4 cursor-pointer"
+                    className="card w-80 h-56 bg-base-200 shadow-xl mt-4 ml-4 cursor-pointer"
                     onClick={() => setAccountFormOpened(true)}
                 >
                     <div className="card-body text-secondary">
