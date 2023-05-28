@@ -1,11 +1,14 @@
 import Modal from "@/Components/Modal";
 import React, { useState } from "react";
-import { FaEllipsisH, FaEllipsisV, FaPlus } from "react-icons/fa";
+import { FaEllipsisV, FaPlus } from "react-icons/fa";
 import AccountForm from "./AccountForm";
-import { usePage } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 
-const AccountListItem = ({ account }) => {
+const AccountListItem = ({ account, onEdit, onRemove }) => {
     const { banks } = usePage().props;
+
+    const [confirmationModalOpened, setConfirmationModalOpened] =
+        useState(false);
 
     const bank = banks.find((b) => b.id == account.bank_id);
 
@@ -22,16 +25,18 @@ const AccountListItem = ({ account }) => {
                     </h2>
 
                     <div className="dropdown dropdown-bottom dropdown-end">
-                        <FaEllipsisV tabIndex={0} className="cursor-pointer" />
+                        <FaEllipsisV tabIndex={1} className="cursor-pointer" />
                         <ul
-                            tabIndex={0}
+                            tabIndex={1}
                             className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
                         >
                             <li>
-                                <a>Edit</a>
+                                <a onClick={onEdit}>Edit</a>
                             </li>
-                            <li>
-                                <a>Remove</a>
+                            <li
+                                onClick={() => setConfirmationModalOpened(true)}
+                            >
+                                <a className="bg-error bg-opacity-20">Remove</a>
                             </li>
                         </ul>
                     </div>
@@ -48,6 +53,32 @@ const AccountListItem = ({ account }) => {
                     <button className="btn btn-primary">Add expense</button>
                 </div>
             </div>
+
+            <Modal
+                show={confirmationModalOpened}
+                onClose={() => setConfirmationModalOpened(false)}
+                title={"Are you sure?"}
+                maxWidth="sm"
+            >
+                <p className="mt-4">This action is irreversible</p>
+                <div className="flex gap-4 mt-6 w-fit mx-auto">
+                    <button
+                        className="btn btn-warning btn-outline"
+                        onClick={() => setConfirmationModalOpened(false)}
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        className="btn btn-error"
+                        onClick={() => {
+                            onRemove();
+                            setConfirmationModalOpened(false);
+                        }}
+                    >
+                        Remove
+                    </button>
+                </div>
+            </Modal>
         </div>
     );
 };
@@ -57,7 +88,11 @@ export default function AccountsList({ accounts }) {
 
     function closeModal() {
         setAccountFormOpened(false);
-        setAccountToEdit(null);
+        setTimeout(() => setAccountToEdit(null), 500);
+    }
+
+    function removeAccount(account) {
+        router.delete(route("accounts.destroy", { id: account.id }));
     }
 
     return (
@@ -74,7 +109,15 @@ export default function AccountsList({ accounts }) {
                 </div>
 
                 {accounts.map((account) => (
-                    <AccountListItem key={account.id} account={account} />
+                    <AccountListItem
+                        key={account.id}
+                        account={account}
+                        onEdit={() => {
+                            setAccountToEdit(account);
+                            setAccountFormOpened(true);
+                        }}
+                        onRemove={() => removeAccount(account)}
+                    />
                 ))}
             </div>
 

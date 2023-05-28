@@ -6,7 +6,11 @@ use App\Http\Requests\Accounts\CreateAccountRequest;
 use App\Http\Requests\Accounts\EditAccountRequest;
 use App\Models\Account;
 use App\Models\Bank;
+use App\Models\Transaction;
 use Exception;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Arr;
 
 class AccountsController extends Controller
 {
@@ -24,13 +28,33 @@ class AccountsController extends Controller
 
     public function store(CreateAccountRequest $request)
     {
-        $validated = $request->validated();
+        $amount = $request->validated()['amount'];
+        $validated = Arr::except($request->validated(), ['amount']);
+
 
         try {
-            Account::insert([...$validated, 'user_id' => auth()->user()->id]);
+            DB::beginTransaction();
+
+            $accountCreated = new Account([...$validated, 'user_id' => auth()->user()->id]);
+            $accountCreated->save();
+
+            if ($amount > 0) {
+                Transaction::insert([
+                    "amount" => $amount,
+                    "description" => 'Initial account amount',
+                    "type" => "INGRESS",
+                    "date" => Carbon::now(),
+                    "currency" => "USD",
+                    "account_id" => $accountCreated->id
+                ]);
+            }
+
             session()->flash("success", "Account '" . $validated['name'] . "' created succesfully");
+
+            DB::commit();
         } catch (Exception $e) {
             session()->flash("error", "Error while creating account '" . $validated['name']);
+            DB::rollBack();
         }
 
         return redirect(route('accounts.index'));

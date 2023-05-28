@@ -30,7 +30,7 @@ return new class extends Migration {
 
             $table->foreignId('account_id')->nullable()->constrained('accounts')->onDelete('cascade');
             $table->foreignId('credit_card_id')->nullable()->constrained('credit_cards')->onDelete('cascade');
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('cascade');
         });
     }
 
