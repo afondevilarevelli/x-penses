@@ -7,26 +7,34 @@ export default function Navbar() {
     const { sidebarOpened, toogleSidebar } = useAppContext();
 
     return (
-        <nav className="bg-neutral">
+        <nav className="bg-secondary">
             <div className="mx-auto px-4 sm:px-6 xl:px-8">
                 <div className="flex justify-between h-16">
-                    <label
-                        className="swap"
-                        onClick={(ev) => {
-                            ev.preventDefault();
-                            toogleSidebar();
-                        }}
+                    <div
+                        className="tooltip tooltip-right my-auto "
+                        data-tip={
+                            (sidebarOpened ? "Close" : "Open") + "Sidebar"
+                        }
                     >
-                        <input
-                            type="checkbox"
-                            className="bg-transparent border-0 hidden"
-                            checked={sidebarOpened}
-                            readOnly
-                        />
+                        <label
+                            className="swap"
+                            onClick={(ev) => {
+                                ev.preventDefault();
+                                toogleSidebar();
+                            }}
+                        >
+                            <input
+                                type="checkbox"
+                                className="bg-transparent border-0 hidden"
+                                checked={sidebarOpened}
+                                readOnly
+                            />
 
-                        <FaTimes className="swap-on h-6 w-6 text-neutral-content" />
-                        <FaBars className="swap-off h-6 w-6 text-neutral-content" />
-                    </label>
+                            <FaTimes className="swap-on h-6 w-6 text-secondary-content" />
+                            <FaBars className="swap-off h-6 w-6 text-secondary-content" />
+                        </label>
+                    </div>
+
                     <div className="flex items-center ml-6">
                         <ThemeSwap />
 

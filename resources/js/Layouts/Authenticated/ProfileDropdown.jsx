@@ -19,7 +19,7 @@ export default function ProfileDropdown() {
 
                 <button
                     type="button"
-                    className="inline-flex items-center px-3 py-2 text-sm text-neutral-content"
+                    className="inline-flex items-center px-3 py-2 text-sm text-secondary-content"
                 >
                     <div className="flex flex-col items-start mr-2">
                         <div>{user.name}</div>

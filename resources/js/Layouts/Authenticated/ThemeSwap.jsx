@@ -18,8 +18,8 @@ export default function ThemeSwap() {
                     checked={theme == DARK_THEME}
                 />
 
-                <FaSun className="swap-on w-6 h-6 text-neutral-content" />
-                <FaMoon className="swap-off w-6 h-6 text-neutral-content" />
+                <FaSun className="swap-on w-6 h-6 text-secondary-content" />
+                <FaMoon className="swap-off w-6 h-6 text-secondary-content" />
             </label>
         </div>
     );
