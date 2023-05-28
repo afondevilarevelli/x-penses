@@ -14,7 +14,7 @@ class Account extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        "number",
+        "name",
         "color",
         "bank_id",
         "user_id"

@@ -43,7 +43,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/accounts', [AccountsController::class, 'index'])->name('accounts.index');
+    Route::resource('accounts', AccountsController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::get('/accounts/projection', [AccountsController::class, 'projection'])->name('accounts.projection');
 
     Route::get('/transactions', [TransactionsController::class, 'index'])->name('transactions.index');
 
