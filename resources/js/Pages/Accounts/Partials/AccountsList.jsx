@@ -37,15 +37,9 @@ const AccountListItem = ({ account }) => {
                     </div>
                 </div>
 
-                <p>
-                    <div className="flex items-center self-start gap-2 text-base-content">
-                        <img
-                            src={bank.image}
-                            alt={bank.name}
-                            className="w-8 h-8"
-                        />
-                        {bank.name}
-                    </div>
+                <p className="flex items-center self-start gap-2 text-base-content">
+                    <img src={bank.image} alt={bank.name} className="w-8 h-8" />
+                    {bank.name}
                 </p>
 
                 <div className="divider mb-0 opacity-30 before:bg-base-content after:bg-base-content"></div>

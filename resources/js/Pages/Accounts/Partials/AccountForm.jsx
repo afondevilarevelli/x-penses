@@ -103,16 +103,7 @@ export default function AccountForm({
                         Select
                     </option>
                     {banks.map((bank) => (
-                        <option
-                            key={bank.id}
-                            value={bank.id}
-                            className="flex flex-row gap-4"
-                        >
-                            <img
-                                src={bank.image}
-                                alt={bank.name}
-                                className="w-24 h-24"
-                            />
+                        <option key={bank.id} value={bank.id}>
                             {bank.name}
                         </option>
                     ))}
