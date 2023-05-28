@@ -16,7 +16,7 @@ class AccountsController extends Controller
 {
     public function index()
     {
-        $user_accounts = auth()->user()->accounts()->get();
+        $user_accounts = auth()->user()->getAccountsWithData();
 
         $banks = Bank::get();
 

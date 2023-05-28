@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -52,5 +53,18 @@ class User extends Authenticatable
     public function categories(): HasMany
     {
         return $this->hasMany(Category::class);
+    }
+
+    public function getAccountsWithData()
+    {
+        $accounts_with_data = DB::table('accounts')->where('user_id', '=', auth()->user()->id)
+            ->join('transactions', 'accounts.id', '=', 'transactions.account_id')
+            ->selectRaw(
+                "accounts.*, " .
+                "SUM(CASE WHEN type = 'INGRESS' THEN transactions.amount ELSE -1*transactions.amount END) AS amount"
+            )
+            ->groupBy('accounts.id')->get();
+
+        return $accounts_with_data;
     }
 }

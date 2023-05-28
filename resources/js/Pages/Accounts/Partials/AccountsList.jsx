@@ -15,7 +15,7 @@ const AccountListItem = ({ account, onEdit, onRemove }) => {
     return (
         <div
             key={account.id}
-            className="card w-80 h-56 bg-base-200 shadow-xl"
+            className="card w-80 h-64 bg-base-200 shadow-xl"
             style={{ backgroundColor: account.color + "33" }}
         >
             <div className="card-body p-6">
@@ -47,10 +47,28 @@ const AccountListItem = ({ account, onEdit, onRemove }) => {
                     {bank.name}
                 </p>
 
+                <div className="flex justify-between items-center mt-2">
+                    <div>Current balance</div>
+                    <div
+                        className={
+                            "text-lg " +
+                            (account.amount > 0
+                                ? "text-success"
+                                : account.amount < 0
+                                ? "text-error"
+                                : "")
+                        }
+                    >
+                        $ {account.amount}
+                    </div>
+                </div>
+
                 <div className="divider mb-0 opacity-30 before:bg-base-content after:bg-base-content"></div>
 
                 <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Add expense</button>
+                    <button className="btn btn-primary btn-sm">
+                        Add expense
+                    </button>
                 </div>
             </div>
 
@@ -99,7 +117,7 @@ export default function AccountsList({ accounts }) {
         <div>
             <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 space-x-4 space-y-4 w-fit">
                 <div
-                    className="card w-80 h-56 bg-base-200 shadow-xl mt-4 ml-4 cursor-pointer"
+                    className="card w-80 h-64 bg-base-200 shadow-xl mt-4 ml-4 cursor-pointer"
                     onClick={() => setAccountFormOpened(true)}
                 >
                     <div className="card-body text-secondary">
