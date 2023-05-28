@@ -19,15 +19,15 @@ class CategoriesController extends Controller
         ]);
     }
 
-    public function create(CreateCategoryRequest $request)
+    public function store(CreateCategoryRequest $request)
     {
         $validated = $request->validated();
 
         try {
-            Category::create([...$validated, 'user_id' => auth()->user()->id]);
+            Category::insert([...$validated, 'user_id' => auth()->user()->id]);
             session()->flash("success", "Category '" . $validated['name'] . "' created succesfully");
         } catch (Exception $e) {
-            session()->flash("error", "Error while creating category '" . $validated['name'] . "'");
+            session()->flash("error", "Error while creating category '" . $validated['name']);
         }
 
         return redirect(route('categories.index'));
@@ -46,7 +46,7 @@ class CategoriesController extends Controller
         return redirect(route('categories.index'));
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $category = Category::where('id', '=', $id)->where('user_id', '=', auth()->user()->id)->first();
 

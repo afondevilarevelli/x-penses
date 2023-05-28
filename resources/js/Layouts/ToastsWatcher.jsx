@@ -8,10 +8,16 @@ export default function ToastsWatcher() {
     const [show, setShow] = useState(true);
 
     useEffect(() => {
-        setTimeout(() => {
-            if (show) setShow(false);
-        }, 5000);
-    }, []);
+        if (
+            flash &&
+            (flash.info || flash.success || flash.warning || flash.error)
+        ) {
+            setShow(true);
+            setTimeout(() => {
+                setShow(false);
+            }, 5000);
+        }
+    }, [flash]);
 
     if (!flash || !show) return <></>;
 

@@ -12,7 +12,7 @@ export default function Categories({ categories }) {
     const [categoryFormOpened, setCategoryFormOpened] = useState(false);
 
     function onDeleteCategory(category) {
-        router.delete(route("categories.delete", { id: category.id }));
+        router.delete(route("categories.destroy", { id: category.id }));
     }
 
     function onEditCategory(category) {
@@ -74,6 +74,7 @@ export default function Categories({ categories }) {
             >
                 <CategoryForm
                     category={categoryToEdit}
+                    onSubmittedSuccesfully={() => setCategoryFormOpened(false)}
                     onCancel={() => setCategoryFormOpened(false)}
                 />
             </Modal>

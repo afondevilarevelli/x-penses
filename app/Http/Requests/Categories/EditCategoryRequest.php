@@ -12,8 +12,8 @@ class EditCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        $category = Category::find($this->route('id'));
-        return $category && $this->user->id == $category->user_id;
+        $category = $this->route('category');
+        return $category && $this->user()->id == $category->user_id;
     }
 
     /**

@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 
 class Category extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         "name",
         "color",
         "icon",
         "user_id"
     ];
+
+    public $timestamps = false;
 
     public static function CreateDefaults(User $user)
     {

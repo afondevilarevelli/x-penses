@@ -9,6 +9,7 @@ export default function ColorPicker({ color = "#fffff", onChange }) {
             <input
                 type="text"
                 value={color}
+                readOnly
                 className={`input w-full transition-opacity input-bordered`}
                 onClick={() => setShow((s) => !s)}
                 style={{ opacity: show ? 0.5 : 1 }}
@@ -21,7 +22,7 @@ export default function ColorPicker({ color = "#fffff", onChange }) {
             />
 
             {show && (
-                <div className="absolute -top-full left-1/4">
+                <div className="absolute -top-full left-0 bg-base-300 p-2 rounded-md">
                     <CirclePicker
                         color={color}
                         onChangeComplete={(c) => {

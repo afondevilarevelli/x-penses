@@ -1,29 +1,30 @@
 import ColorPicker from "@/Components/ColorPicker";
 import IconPicker from "@/Components/IconPicker";
 import { useForm } from "@inertiajs/react";
-import React from "react";
+import React, { useEffect } from "react";
 
-export default function CategoryForm({ category, onCancel = () => {} }) {
-    const {
-        data,
-        setData,
-        patch,
-        post,
-        errors,
-        processing,
-        recentlySuccessful,
-    } = useForm({
-        name: category ? category.name : "",
-        color: category ? category.color : "#00B9FF",
-        icon: category ? category.icon : "FaSmile",
-    });
+export default function CategoryForm({
+    category,
+    onSubmittedSuccesfully = () => {},
+    onCancel = () => {},
+}) {
+    const { data, setData, put, post, errors, processing, recentlySuccessful } =
+        useForm({
+            name: category ? category.name : "",
+            color: category ? category.color : "#00B9FF",
+            icon: category ? category.icon : "FaSmile",
+        });
 
     const submit = (e) => {
         e.preventDefault();
 
-        if (category) patch(route("categories.update"));
-        else post(route("categories.create"));
+        if (category) put(route("categories.update", { id: category.id }));
+        else post(route("categories.store"));
     };
+
+    useEffect(() => {
+        if (recentlySuccessful) onSubmittedSuccesfully();
+    }, [recentlySuccessful]);
 
     return (
         <form onSubmit={submit} className="mt-6 space-y-6">
@@ -79,7 +80,11 @@ export default function CategoryForm({ category, onCancel = () => {} }) {
                     Cancel
                 </button>
 
-                <button className="btn btn-primary" disabled={processing}>
+                <button
+                    className="btn btn-primary"
+                    disabled={processing}
+                    type="submit"
+                >
                     {category ? "Save" : "Create"}
                 </button>
             </div>

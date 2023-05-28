@@ -58,12 +58,12 @@ export default function Modal({
                 >
                     <Dialog.Panel
                         data-theme={theme}
-                        className={`mb-6 bg-base-100 rounded-lg p-4 overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto ${maxWidthClass}`}
+                        className={`mb-6 bg-base-100 rounded-lg p-4 overflow-hidden shadow-xl transform transition-all w-full sm:mx-auto ${maxWidthClass}`}
                     >
                         <div className="flex justify-between">
                             {title && <h2 className="text-2xl">{title}</h2>}
                             <button
-                                className="btn btn-circle btn-outline btn-sm"
+                                className="btn btn-circle btn-outline btn-sm ml-auto"
                                 onClick={() => close()}
                             >
                                 <FaTimes />

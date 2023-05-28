@@ -11,6 +11,8 @@ class Account extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         "number",
         "color",
