@@ -76,6 +76,7 @@ export default function CategoryForm({
                     className="btn btn-ghost"
                     disabled={processing}
                     onClick={onCancel}
+                    type="button"
                 >
                     Cancel
                 </button>
