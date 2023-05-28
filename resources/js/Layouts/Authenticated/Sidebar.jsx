@@ -35,6 +35,10 @@ export default function Sidebar() {
                                 className={`${
                                     route().current(item.route) ? "active" : ""
                                 }`}
+                                onClick={() => {
+                                    if (window.innerWidth < 1024)
+                                        toogleSidebar();
+                                }}
                             >
                                 {item.icon}
                                 {sidebarOpened && item.label}
