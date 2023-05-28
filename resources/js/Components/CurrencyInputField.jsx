@@ -1,6 +1,7 @@
 import React from "react";
+import CurrencyInput from "react-currency-input-field";
 
-export default function NumberInput({
+export default function CurrencyInputField({
     label,
     value,
     onChange,
@@ -16,25 +17,14 @@ export default function NumberInput({
             <label className="input-group">
                 {leftIcon && <span>{leftIcon}</span>}
 
-                <input
+                <CurrencyInput
+                    placeholder={placeholder}
+                    value={value}
+                    decimalsLimit={2}
+                    onValueChange={(value, name) => onChange(value)}
                     className={`input w-full ${
                         error ? "input-error" : "input-bordered"
                     }`}
-                    placeholder={placeholder}
-                    onKeyDown={(e) => {
-                        if (
-                            !/[0-9]/.test(e.key) &&
-                            e.key != "Delete" &&
-                            e.key != "Backspace" &&
-                            e.key != "ArrowLeft" &&
-                            e.key != "ArrowRight" &&
-                            e.key != "-"
-                        )
-                            e.preventDefault();
-                    }}
-                    autoFocus
-                    value={value}
-                    onChange={(e) => onChange(e.target.value)}
                 />
             </label>
 

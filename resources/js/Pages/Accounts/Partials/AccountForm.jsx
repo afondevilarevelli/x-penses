@@ -1,5 +1,5 @@
 import ColorPicker from "@/Components/ColorPicker";
-import NumberInput from "@/Components/NumberInput";
+import CurrencyInputField from "@/Components/CurrencyInputField";
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useEffect } from "react";
 import { FaExclamationCircle } from "react-icons/fa";
@@ -11,21 +11,13 @@ export default function AccountForm({
 }) {
     const { banks } = usePage().props;
 
-    const {
-        data,
-        setData,
-        put,
-        post,
-        errors,
-        setError,
-        processing,
-        recentlySuccessful,
-    } = useForm({
-        amount: account ? account.amount : "",
-        name: account ? account.name : "",
-        color: account ? account.color : "#00B9FF",
-        bank_id: account ? account.bank_id : "",
-    });
+    const { data, setData, put, post, errors, processing, recentlySuccessful } =
+        useForm({
+            amount: account ? account.amount : "",
+            name: account ? account.name : "",
+            color: account ? account.color : "#00B9FF",
+            bank_id: account ? account.bank_id : "",
+        });
 
     const submit = (e) => {
         e.preventDefault();
@@ -53,17 +45,13 @@ export default function AccountForm({
                 </div>
             )}
 
-            <NumberInput
+            <CurrencyInputField
                 label={"Amount"}
                 value={data.amount}
                 placeholder="0"
                 error={errors.amount}
                 leftIcon={"$"}
                 onChange={(val) => {
-                    if (val.length > 10)
-                        setError("amount", "Max. " + 10 + " digits");
-                    else setError("amount", null);
-
                     setData("amount", val);
                 }}
             />
@@ -88,7 +76,6 @@ export default function AccountForm({
                     </label>
                 )}
             </div>
-
             <div>
                 <label className="label">
                     <span className="label-text">Color</span>
@@ -98,7 +85,6 @@ export default function AccountForm({
                     onChange={(c) => setData("color", c)}
                 />
             </div>
-
             <div className="form-control mt-4">
                 <label className="label">
                     <span className="label-text">Bank</span>
@@ -129,7 +115,6 @@ export default function AccountForm({
                     </label>
                 )}
             </div>
-
             <div className="flex items-center justify-end mt-6 gap-4">
                 <button
                     className="btn btn-ghost"
