@@ -25,7 +25,8 @@ class EditAccountRequest extends FormRequest
         return [
             'name' => ['string', 'max:50', 'required'],
             'color' => ['string', 'max:30', 'required'],
-            'bank_id' => ['exists:banks,id', 'required']
+            'bank_id' => ['exists:banks,id', 'required'],
+            'amount' => ['numeric', 'digits_between:1,10', 'required']
         ];
     }
 }

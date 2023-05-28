@@ -1,4 +1,5 @@
 import ColorPicker from "@/Components/ColorPicker";
+import NumberInput from "@/Components/NumberInput";
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useEffect } from "react";
 
@@ -9,16 +10,26 @@ export default function AccountForm({
 }) {
     const { banks } = usePage().props;
 
-    const { data, setData, put, post, errors, processing, recentlySuccessful } =
-        useForm({
-            amount: "",
-            name: account ? account.name : "",
-            color: account ? account.color : "#00B9FF",
-            bank_id: account ? account.bank_id : "",
-        });
+    const {
+        data,
+        setData,
+        put,
+        post,
+        errors,
+        setError,
+        processing,
+        recentlySuccessful,
+    } = useForm({
+        amount: "",
+        name: account ? account.name : "",
+        color: account ? account.color : "#00B9FF",
+        bank_id: account ? account.bank_id : "",
+    });
 
     const submit = (e) => {
         e.preventDefault();
+
+        setData("amount", Number.parseFloat(data.amount));
 
         if (account) put(route("accounts.update", { id: account.id }));
         else post(route("accounts.store"));
@@ -30,38 +41,20 @@ export default function AccountForm({
 
     return (
         <form onSubmit={submit} className="mt-6 space-y-4">
-            <div className="form-control mt-4">
-                <label className="label">
-                    <span className="label-text">Amount</span>
-                </label>
-                <label className="input-group">
-                    <span>$</span>
-                    <input
-                        className={`input w-full ${
-                            errors.amount ? "input-error" : "input-bordered"
-                        }`}
-                        pattern="[0-9]*"
-                        placeholder="0"
-                        onKeyDown={(e) => {
-                            if (!/[0-9]/.test(e.key)) {
-                                e.preventDefault();
-                            }
-                        }}
-                        autoFocus
-                        value={data.amount}
-                        autoComplete="new-password"
-                        onChange={(e) => setData("amount", e.target.value)}
-                    />
-                </label>
+            <NumberInput
+                label={"Amount"}
+                value={data.amount}
+                placeholder="0"
+                error={errors.amount}
+                leftIcon={"$"}
+                onChange={(val) => {
+                    if (val.length > 10)
+                        setError("amount", "Max. " + 10 + " digits");
+                    else setError("amount", null);
 
-                {errors.amount && (
-                    <label className="label">
-                        <span className="label-text-alt text-error">
-                            {errors.amount}
-                        </span>
-                    </label>
-                )}
-            </div>
+                    setData("amount", val);
+                }}
+            />
 
             <div className="form-control mt-4">
                 <label className="label">
