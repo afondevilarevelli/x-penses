@@ -2,6 +2,7 @@ import ColorPicker from "@/Components/ColorPicker";
 import NumberInput from "@/Components/NumberInput";
 import { useForm, usePage } from "@inertiajs/react";
 import React, { useEffect } from "react";
+import { FaExclamationCircle } from "react-icons/fa";
 
 export default function AccountForm({
     account,
@@ -41,6 +42,17 @@ export default function AccountForm({
 
     return (
         <form onSubmit={submit} className="mt-6 space-y-4">
+            {account && (
+                <div className="alert alert-info shadow-lg">
+                    <div>
+                        <FaExclamationCircle />
+                        <span>
+                            Editing the amount will create a new Transaction
+                        </span>
+                    </div>
+                </div>
+            )}
+
             <NumberInput
                 label={"Amount"}
                 value={data.amount}
