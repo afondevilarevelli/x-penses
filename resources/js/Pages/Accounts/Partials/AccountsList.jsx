@@ -59,7 +59,7 @@ const AccountListItem = ({ account, onEdit, onRemove }) => {
                                 : "")
                         }
                     >
-                        $ {account.amount}
+                        $ {account.amount.toLocaleString()}
                     </div>
                 </div>
 

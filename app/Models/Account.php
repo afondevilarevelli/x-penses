@@ -48,8 +48,8 @@ class Account extends Model
             ->groupBy('accounts.id')->first();
 
         if (!$amount)
-            return 0;
+            return 0.;
 
-        return $amount->amount;
+        return (float) $amount->amount;
     }
 }
