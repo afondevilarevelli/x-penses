@@ -118,7 +118,10 @@ export default function AccountsList({ accounts }) {
             <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 space-x-4 space-y-4 w-fit">
                 <div
                     className="card w-80 h-64 bg-base-200 shadow-xl mt-4 ml-4 cursor-pointer"
-                    onClick={() => setAccountFormOpened(true)}
+                    onClick={() => {
+                        setAccountToEdit(null);
+                        setAccountFormOpened(true);
+                    }}
                 >
                     <div className="card-body text-secondary">
                         <FaPlus className="mx-auto my-auto h-24 w-24 p-2 rounded-full border-4 border-secondary" />
