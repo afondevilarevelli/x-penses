@@ -15,7 +15,7 @@ const AccountListItem = ({ account, onEdit, onRemove }) => {
     return (
         <div
             key={account.id}
-            className="card w-80 h-64 bg-base-200 shadow-xl"
+            className="card h-64 bg-base-200 shadow-xl"
             style={{ backgroundColor: account.color + "33" }}
         >
             <div className="card-body p-6">
@@ -115,9 +115,9 @@ export default function AccountsList({ accounts }) {
 
     return (
         <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 space-x-4 space-y-4 w-fit">
+            <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 space-x-4 space-y-4">
                 <div
-                    className="card w-80 h-64 bg-base-200 shadow-xl mt-4 ml-4 cursor-pointer"
+                    className="card h-64 bg-base-200 shadow-xl mt-4 ml-4 cursor-pointer"
                     onClick={() => {
                         setAccountToEdit(null);
                         setAccountFormOpened(true);

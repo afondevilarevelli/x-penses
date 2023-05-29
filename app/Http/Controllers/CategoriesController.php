@@ -50,8 +50,7 @@ class CategoriesController extends Controller
     {
         $category = Category::where('id', '=', $id)->where('user_id', '=', auth()->user()->id)->first();
 
-        if (!$category)
-            return response('Unauthorized', 401);
+        abort_if(!$category, 403);
 
         $name = $category->name;
 

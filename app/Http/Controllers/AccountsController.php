@@ -92,8 +92,7 @@ class AccountsController extends Controller
     {
         $account = Account::where('id', '=', $id)->where('user_id', '=', auth()->user()->id)->first();
 
-        if (!$account)
-            return response('Unauthorized', 401);
+        abort_if(!$account, 403);
 
         $name = $account->name;
 

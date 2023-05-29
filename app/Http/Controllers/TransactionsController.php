@@ -53,9 +53,7 @@ class TransactionsController extends Controller
     {
         $transaction = Transaction::where('id', '=', $id)->where('user_id', '=', auth()->user()->id)->first();
 
-        if (!$transaction)
-            return response('Unauthorized', 401);
-
+        abort_if(!$transaction, 403);
 
         try {
             $transaction->delete();

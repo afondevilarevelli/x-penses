@@ -12,7 +12,7 @@ export default function Accounts({ accounts }) {
             <h1 className="text-4xl mb-4">Accounts</h1>
 
             <div className="flex flex-col-reverse lg:flex-row items-center lg:items-start gap-6">
-                <div className="w-fit">
+                <div className="w-full">
                     <AccountsList accounts={accounts} />
                 </div>
 
