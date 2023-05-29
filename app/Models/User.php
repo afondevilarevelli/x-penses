@@ -65,4 +65,14 @@ class User extends Authenticatable
 
         return $user_accounts;
     }
+
+    public function getTransactions()
+    {
+        return DB::table('transactions')
+            ->select('transactions.*')
+            ->join('accounts', 'accounts.id', '=', 'transactions.account_id')
+            ->where('accounts.user_id', '=', auth()->id())
+            ->latest('datetime')
+            ->get();
+    }
 }

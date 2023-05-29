@@ -8,7 +8,6 @@ use App\Models\Account;
 use App\Models\Bank;
 use App\Models\Transaction;
 use Exception;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Arr;
 
@@ -42,7 +41,7 @@ class AccountsController extends Controller
                     "amount" => abs($amount),
                     "description" => 'Initial account amount',
                     "type" => $amount > 0 ? "INGRESS" : 'EGRESS',
-                    "date" => Carbon::now(),
+                    "datetime" => now(),
                     "currency" => "USD",
                     "account_id" => $accountCreated->id
                 ]);
@@ -75,7 +74,7 @@ class AccountsController extends Controller
                     "amount" => abs($diff),
                     "description" => 'Modify account amount',
                     "type" => $amount > $currentAmount ? "INGRESS" : 'EGRESS',
-                    "date" => Carbon::now(),
+                    "datetime" => now(),
                     "currency" => "USD",
                     "account_id" => $account->id
                 ]);
@@ -106,5 +105,14 @@ class AccountsController extends Controller
         }
 
         return redirect(route('accounts.index'));
+    }
+
+    public function projection($id)
+    {
+        $user_account = auth()->user()->accounts()->findOrFail($id);
+
+        return inertia('Accounts/Projection', [
+            "account" => $user_account
+        ]);
     }
 }

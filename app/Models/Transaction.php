@@ -16,7 +16,7 @@ class Transaction extends Model
         "amount",
         "description",
         "type",
-        "date",
+        "datetime",
         "notes",
         "currency",
         "account_id",
