@@ -48,7 +48,7 @@ class CategoriesController extends Controller
 
     public function destroy($id)
     {
-        $category = Category::where('id', '=', $id)->where('user_id', '=', auth()->user()->id)->first();
+        $category = Category::where('id', $id)->where('user_id', auth()->user()->id)->first();
 
         abort_if(!$category, 403);
 

@@ -57,7 +57,7 @@ export default function Table({ data, columns, actions }) {
                                                     onConfirm={() =>
                                                         action.onClick(item)
                                                     }
-                                                    className={`dropdown-left xl:dropdown-right ${
+                                                    className={`dropdown-left ${
                                                         idx < 2
                                                             ? "dropdown-start"
                                                             : "dropdown-end"

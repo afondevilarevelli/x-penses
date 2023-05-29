@@ -90,7 +90,7 @@ class AccountsController extends Controller
 
     public function destroy($id)
     {
-        $account = Account::where('id', '=', $id)->where('user_id', '=', auth()->user()->id)->first();
+        $account = Account::where('id', $id)->where('user_id', auth()->user()->id)->first();
 
         abort_if(!$account, 403);
 

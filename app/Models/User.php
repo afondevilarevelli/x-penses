@@ -71,7 +71,7 @@ class User extends Authenticatable
         return DB::table('transactions')
             ->select('transactions.*')
             ->join('accounts', 'accounts.id', '=', 'transactions.account_id')
-            ->where('accounts.user_id', '=', auth()->id())
+            ->where('accounts.user_id', auth()->id())
             ->latest('datetime')
             ->get();
     }
@@ -81,7 +81,7 @@ class User extends Authenticatable
         return DB::table('credit_cards')
             ->select('credit_cards.*')
             ->join('accounts', 'accounts.id', '=', 'credit_cards.account_id')
-            ->where('accounts.user_id', '=', auth()->id())
+            ->where('accounts.user_id', auth()->id())
             ->get();
     }
 }
