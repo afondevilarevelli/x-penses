@@ -75,4 +75,13 @@ class User extends Authenticatable
             ->latest('datetime')
             ->get();
     }
+
+    public function getCreditCards()
+    {
+        return DB::table('credit_cards')
+            ->select('credit_cards.*')
+            ->join('accounts', 'accounts.id', '=', 'credit_cards.account_id')
+            ->where('accounts.user_id', '=', auth()->id())
+            ->get();
+    }
 }

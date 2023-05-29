@@ -29,6 +29,8 @@ export default function Categories({ categories }) {
         <AuthenticatedLayout>
             <Head title="Categories" />
 
+            <h1 className="text-4xl mb-4">Categories</h1>
+
             <div className="flex flex-col gap-4">
                 <button
                     className="btn btn-primary self-end space-x-2"

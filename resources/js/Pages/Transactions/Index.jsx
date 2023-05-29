@@ -2,20 +2,31 @@ import Table from "@/Components/Table";
 import AuthenticatedLayout from "@/Layouts/Authenticated/AuthenticatedLayout";
 import { Head, router } from "@inertiajs/react";
 import React, { useState } from "react";
-import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
+import {
+    FaEdit,
+    FaLevelDownAlt,
+    FaLevelUpAlt,
+    FaPlus,
+    FaTrash,
+} from "react-icons/fa";
 import TransactionForm from "./Partials/TransactionForm";
 import Modal from "@/Components/Modal";
+import Icon from "@/Components/Icon";
 
-export default function Transactions({ transactions }) {
+export default function Transactions({
+    transactions,
+    categories,
+    creditCards,
+}) {
     const [transactionToEdit, setTransactionToEdit] = useState(null);
     const [transactionFormOpened, setTransactionFormOpened] = useState(false);
 
     function onDeleteTransaction(transaction) {
-        router.delete(route("transactions.destroy", { id: transaction.Id }));
+        router.delete(route("transactions.destroy", { id: transaction.id }));
     }
 
     function onEditTransaction(transaction) {
-        setTransactionToEdit(transactions.find((t) => t.id == transaction.Id));
+        setTransactionToEdit(transactions.find((t) => t.id == transaction.id));
         setTransactionFormOpened(true);
     }
 
@@ -24,9 +35,19 @@ export default function Transactions({ transactions }) {
         setTimeout(() => setTransactionToEdit(null), 500);
     }
 
+    function getCategory(trans) {
+        return categories.find((c) => c.id == trans.category_id);
+    }
+
+    function getCreditCard(trans) {
+        return creditCards.find((c) => c.id == trans.credit_card_id);
+    }
+
     return (
         <AuthenticatedLayout>
             <Head title="Transactions" />
+
+            <h1 className="text-4xl mb-4">Transactions</h1>
 
             <div className="flex flex-col gap-4">
                 <button
@@ -42,11 +63,41 @@ export default function Transactions({ transactions }) {
 
                 <Table
                     data={transactions.map((trans) => ({
-                        Id: trans.id,
-                        Date: new Date(trans.datetime).toLocaleString(),
-                        Description: trans.description,
+                        id: trans.id,
+                        date: new Date(trans.datetime).toLocaleString(),
+                        description: trans.description,
+                        amount: trans.amount.toLocaleString(),
+                        type: (
+                            <div>
+                                {trans.type == "INGRESS" ? (
+                                    <FaLevelUpAlt className="text-success" />
+                                ) : (
+                                    <FaLevelDownAlt className="text-error" />
+                                )}
+                            </div>
+                        ),
+                        description: trans.description,
+                        category: (
+                            <div>
+                                {getCategory(trans) ? (
+                                    <Icon
+                                        name={getCategory(trans).icon}
+                                        size={40}
+                                    />
+                                ) : (
+                                    "-"
+                                )}
+                            </div>
+                        ),
                     }))}
-                    columns={["Id", "Date", "Description"]}
+                    columns={[
+                        "id",
+                        "date",
+                        "category",
+                        "description",
+                        "type",
+                        "amount",
+                    ]}
                     actions={[
                         {
                             label: "Edit",

@@ -6,16 +6,19 @@ use App\Http\Requests\Transactions\CreateTransactionRequest;
 use App\Http\Requests\Transactions\EditTransactionRequest;
 use App\Models\Transaction;
 use Exception;
-use Illuminate\Http\Request;
 
 class TransactionsController extends Controller
 {
     public function index()
     {
         $user_transactions = auth()->user()->getTransactions();
+        $user_credit_cards = auth()->user()->getCreditCards();
+        $user_categories = auth()->user()->categories()->get();
 
         return inertia('Transactions/Index', [
-            "transactions" => $user_transactions
+            "transactions" => $user_transactions,
+            "categories" => $user_categories,
+            "creditCards" => $user_credit_cards
         ]);
     }
 
