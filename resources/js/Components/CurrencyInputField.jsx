@@ -8,6 +8,7 @@ export default function CurrencyInputField({
     placeholder = "",
     error = null,
     leftIcon = null,
+    inputClass = "",
 }) {
     return (
         <div className="form-control mt-4">
@@ -22,7 +23,7 @@ export default function CurrencyInputField({
                     value={value}
                     decimalsLimit={2}
                     onValueChange={(value, name) => onChange(value)}
-                    className={`input w-full ${
+                    className={`input w-full ${inputClass} ${
                         error ? "input-error" : "input-bordered"
                     }`}
                 />

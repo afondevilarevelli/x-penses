@@ -14,10 +14,25 @@ import TransactionForm from "./Partials/TransactionForm";
 import Modal from "@/Components/Modal";
 import Icon from "@/Components/Icon";
 
-const filterLinks = [
-    { label: "Transactions", route: "transactions.index", color: "secondary" },
-    { label: "Incomes", route: "transactions.incomes.index", color: "success" },
-    { label: "Expenses", route: "transactions.expenses.index", color: "error" },
+export const filterLinks = [
+    {
+        label: "Transactions",
+        route: "transactions.index",
+        color: "secondary",
+        type: null,
+    },
+    {
+        label: "Incomes",
+        route: "transactions.incomes.index",
+        color: "success",
+        type: "INCOME",
+    },
+    {
+        label: "Expenses",
+        route: "transactions.expenses.index",
+        color: "error",
+        type: "EXPENSE",
+    },
 ];
 
 export default function Transactions({
@@ -44,10 +59,6 @@ export default function Transactions({
 
     function getCategory(trans) {
         return categories.find((c) => c.id == trans.category_id);
-    }
-
-    function getCreditCard(trans) {
-        return creditCards.find((c) => c.id == trans.credit_card_id);
     }
 
     function getActiveFilterLink() {
@@ -167,6 +178,7 @@ export default function Transactions({
             >
                 <TransactionForm
                     transaction={transactionToEdit}
+                    transactionType={getActiveFilterLink().type}
                     onSubmittedSuccesfully={() =>
                         setTransactionFormOpened(false)
                     }
