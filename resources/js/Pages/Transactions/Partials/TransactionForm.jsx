@@ -49,7 +49,11 @@ export default function TransactionForm({
                 placeholder="0"
                 error={errors.amount}
                 leftIcon={"$"}
-                inputClass="text-error placeholder-error"
+                inputClass={
+                    transaction.type == "INCOME"
+                        ? "text-success placeholder-success"
+                        : "text-error placeholder-error"
+                }
                 onChange={(val) => {
                     setData("amount", val);
                 }}
