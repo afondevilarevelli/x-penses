@@ -1,22 +1,22 @@
 import React, { useEffect } from "react";
-import { filterLinks } from "../Index";
 import { useForm, usePage } from "@inertiajs/react";
 import CurrencyInputField from "@/Components/CurrencyInputField";
 import Icon from "@/Components/Icon";
-import DateTimePicker from "@/Components/DatetimePicker";
+import { FaCalendar, FaQuestion } from "react-icons/fa";
+import DateTimeInput from "@/Components/DatetimeInput";
 
-export default function TransactionForm(
+export default function TransactionForm({
     transaction,
     transactionType = null,
     onSubmittedSuccesfully = () => {},
-    onCancel = () => {}
-) {
+    onCancel = () => {},
+}) {
     const { categories } = usePage().props;
     const { data, setData, put, post, errors, processing, recentlySuccessful } =
         useForm({
             amount: transaction ? transaction.amount : "",
             description: transaction ? transaction.description : "",
-            date: transaction ? transaction.date : "",
+            datetime: transaction ? new Date(transaction.datetime) : "",
             type: transaction
                 ? transaction.type
                 : transactionType
@@ -81,19 +81,19 @@ export default function TransactionForm(
                     <label className="label">
                         <span className="label-text">Category</span>
                     </label>
-                    <label className="input-group w-fit">
+                    <label className="input-group pr-12">
                         <span>
                             {getCategory(data.category_id) ? (
                                 <Icon
                                     name={getCategory(data.category_id).icon}
-                                    size={18}
+                                    size={15}
                                 />
                             ) : (
-                                ""
+                                <Icon name={"FaQuestion"} size={15} />
                             )}
                         </span>
                         <select
-                            className={`select w-fit ${
+                            className={`select w-full ${
                                 errors.category_id
                                     ? "select-error"
                                     : "select-bordered"
@@ -124,11 +124,14 @@ export default function TransactionForm(
                     )}
                 </div>
 
-                <div>
-                    <label className="label">
-                        <span className="label-text">Date</span>
-                    </label>
-                    <DateTimePicker />
+                <div className="form-control mt-4">
+                    <DateTimeInput
+                        label={"Date"}
+                        value={data.datetime}
+                        error={errors.datetime}
+                        onChange={(val) => setData("datetime", val)}
+                        leftIcon={<FaCalendar />}
+                    />
                 </div>
             </div>
 
