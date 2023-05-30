@@ -12,13 +12,33 @@ class TransactionsController extends Controller
     public function index()
     {
         $user_transactions = auth()->user()->getTransactions();
-        $user_credit_cards = auth()->user()->getCreditCards();
         $user_categories = auth()->user()->categories()->get();
 
         return inertia('Transactions/Index', [
             "transactions" => $user_transactions,
             "categories" => $user_categories,
-            "creditCards" => $user_credit_cards
+        ]);
+    }
+
+    public function incomes()
+    {
+        $user_transactions = auth()->user()->getTransactions('INCOME');
+        $user_categories = auth()->user()->categories()->get();
+
+        return inertia('Transactions/Index', [
+            "transactions" => $user_transactions,
+            "categories" => $user_categories,
+        ]);
+    }
+
+    public function expenses()
+    {
+        $user_transactions = auth()->user()->getTransactions('EXPENSE');
+        $user_categories = auth()->user()->categories()->get();
+
+        return inertia('Transactions/Index', [
+            "transactions" => $user_transactions,
+            "categories" => $user_categories,
         ]);
     }
 

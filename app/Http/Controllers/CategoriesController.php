@@ -6,7 +6,6 @@ use App\Http\Requests\Categories\CreateCategoryRequest;
 use App\Http\Requests\Categories\EditCategoryRequest;
 use App\Models\Category;
 use Exception;
-use Response;
 
 class CategoriesController extends Controller
 {

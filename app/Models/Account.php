@@ -41,7 +41,7 @@ class Account extends Model
         $amount = DB::table('accounts')->where('accounts.id', $this->id)
             ->join('transactions', 'accounts.id', '=', 'transactions.account_id')
             ->selectRaw(
-                "SUM(CASE WHEN type = 'INGRESS' THEN transactions.amount ELSE -1*transactions.amount END) AS amount"
+                "SUM(CASE WHEN type = 'INCOME' THEN transactions.amount ELSE -1*transactions.amount END) AS amount"
             )
             ->where('datetime', '<=', now())
             ->groupBy('accounts.id')->first();

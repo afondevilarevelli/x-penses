@@ -66,14 +66,18 @@ class User extends Authenticatable
         return $user_accounts;
     }
 
-    public function getTransactions()
+    public function getTransactions(?string $type = null)
     {
-        return DB::table('transactions')
+        $query = DB::table('transactions')
             ->select('transactions.*')
             ->join('accounts', 'accounts.id', '=', 'transactions.account_id')
             ->where('accounts.user_id', auth()->id())
-            ->latest('datetime')
-            ->get();
+            ->latest('datetime');
+
+        if ($type)
+            $query = $query->where('type', $type);
+
+        return $query->get();
     }
 
     public function getCreditCards()

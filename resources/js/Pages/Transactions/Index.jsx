@@ -1,8 +1,9 @@
 import Table from "@/Components/Table";
 import AuthenticatedLayout from "@/Layouts/Authenticated/AuthenticatedLayout";
-import { Head, router } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import {
+    FaArrowDown,
     FaEdit,
     FaLevelDownAlt,
     FaLevelUpAlt,
@@ -12,6 +13,12 @@ import {
 import TransactionForm from "./Partials/TransactionForm";
 import Modal from "@/Components/Modal";
 import Icon from "@/Components/Icon";
+
+const filterLinks = [
+    { label: "Transactions", route: "transactions.index", color: "secondary" },
+    { label: "Incomes", route: "transactions.incomes.index", color: "success" },
+    { label: "Expenses", route: "transactions.expenses.index", color: "error" },
+];
 
 export default function Transactions({
     transactions,
@@ -43,23 +50,58 @@ export default function Transactions({
         return creditCards.find((c) => c.id == trans.credit_card_id);
     }
 
+    function getActiveFilterLink() {
+        return filterLinks.find((l) => route().current(l.route));
+    }
+
     return (
         <AuthenticatedLayout>
             <Head title="Transactions" />
 
-            <h1 className="text-4xl mb-4">Transactions</h1>
+            <h1 className="text-4xl mb-6">Transactions</h1>
 
             <div className="flex flex-col gap-4">
-                <button
-                    className="btn btn-primary self-end space-x-2"
-                    onClick={() => {
-                        setTransactionToEdit(null);
-                        setTransactionFormOpened(true);
-                    }}
-                >
-                    <div>Create</div>
-                    <FaPlus />
-                </button>
+                <div className="flex flex-row justify-between items-center">
+                    <div className={`dropdown`}>
+                        <label
+                            tabIndex={0}
+                            className={`btn m-1 btn-${
+                                getActiveFilterLink().color
+                            }`}
+                        >
+                            <FaArrowDown className="mr-2" />
+                            {getActiveFilterLink().label}
+                        </label>
+                        <ul
+                            tabIndex={0}
+                            className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                        >
+                            {filterLinks.map((link, idx) => (
+                                <li className="flex flex-row items-center">
+                                    <Link
+                                        href={route(link.route)}
+                                        className="w-full"
+                                    >
+                                        <div
+                                            className={`h-6 w-6 rounded-full bg-${link.color}`}
+                                        ></div>
+                                        {link.label}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <button
+                        className="btn btn-primary self-end space-x-2"
+                        onClick={() => {
+                            setTransactionToEdit(null);
+                            setTransactionFormOpened(true);
+                        }}
+                    >
+                        <div>Create</div>
+                        <FaPlus />
+                    </button>
+                </div>
 
                 <Table
                     data={transactions.map((trans) => ({
@@ -69,7 +111,7 @@ export default function Transactions({
                         amount: trans.amount.toLocaleString(),
                         type: (
                             <div>
-                                {trans.type == "INGRESS" ? (
+                                {trans.type == "INCOME" ? (
                                     <FaLevelUpAlt className="text-success" />
                                 ) : (
                                     <FaLevelDownAlt className="text-error" />

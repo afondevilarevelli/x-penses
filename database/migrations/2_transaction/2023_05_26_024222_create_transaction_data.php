@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedDecimal('amount', 10);
             $table->string('description', 100)->nullable();
-            $table->enum('type', ["INGRESS", "EGRESS", "CREDIT_CARD_EXPENSE"]);
+            $table->enum('type', ["INCOME", "EXPENSE", "CREDIT_CARD_EXPENSE"]);
             $table->dateTime('datetime');
             $table->string('notes', 100)->nullable();
             $table->string('currency', 15);

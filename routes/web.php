@@ -47,6 +47,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/accounts/{id}/projection', [AccountsController::class, 'projection'])->name('accounts.projection');
 
     Route::resource('transactions', TransactionsController::class)->only(['index', 'store', 'update', 'destroy']);
+    Route::get('transactions/incomes', [TransactionsController::class, 'incomes'])->name('transactions.incomes.index');
+    Route::get('transactions/expenses', [TransactionsController::class, 'expenses'])->name('transactions.expenses.index');
 
     Route::get('/credit-cards', [CreditCardsController::class, 'index'])->name('credit-cards.index');
 

@@ -40,7 +40,7 @@ class AccountsController extends Controller
                 Transaction::insert([
                     "amount" => abs($amount),
                     "description" => 'Initial account amount',
-                    "type" => $amount > 0 ? "INGRESS" : 'EGRESS',
+                    "type" => $amount > 0 ? "INCOME" : 'EXPENSE',
                     "datetime" => now(),
                     "currency" => "USD",
                     "account_id" => $accountCreated->id
@@ -73,7 +73,7 @@ class AccountsController extends Controller
                 Transaction::insert([
                     "amount" => abs($diff),
                     "description" => 'Modify account amount',
-                    "type" => $amount > $currentAmount ? "INGRESS" : 'EGRESS',
+                    "type" => $amount > $currentAmount ? "INCOME" : 'EXPENSE',
                     "datetime" => now(),
                     "currency" => "USD",
                     "account_id" => $account->id
