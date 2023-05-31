@@ -13,10 +13,12 @@ class TransactionsController extends Controller
     {
         $user_transactions = auth()->user()->getTransactions();
         $user_categories = auth()->user()->categories()->get();
+        $user_accounts = auth()->user()->accounts()->get();
 
         return inertia('Transactions/Index', [
             "transactions" => $user_transactions,
             "categories" => $user_categories,
+            "accounts" => $user_accounts
         ]);
     }
 

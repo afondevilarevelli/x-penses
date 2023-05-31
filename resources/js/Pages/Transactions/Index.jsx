@@ -35,7 +35,7 @@ export const filterLinks = [
     },
 ];
 
-export default function Transactions({ transactions, categories }) {
+export default function Transactions({ transactions, categories, accounts }) {
     const [transactionToEdit, setTransactionToEdit] = useState(null);
     const [transactionFormOpened, setTransactionFormOpened] = useState(false);
 
@@ -129,6 +129,8 @@ export default function Transactions({ transactions, categories }) {
                             </div>
                         ),
                         description: trans.description,
+                        account: accounts.find((a) => a.id == trans.account_id)
+                            .name,
                         category: (
                             <div>
                                 {getCategory(trans) ? (
@@ -147,6 +149,7 @@ export default function Transactions({ transactions, categories }) {
                         "date",
                         "category",
                         "description",
+                        "account",
                         "type",
                         "amount",
                     ]}
