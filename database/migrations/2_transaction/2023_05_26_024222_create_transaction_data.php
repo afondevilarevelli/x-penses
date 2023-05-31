@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('name', 50);
             $table->string('color', 30)->nullable();
             $table->string('icon', 50)->nullable();
+            $table->timestamps();
 
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
         });
@@ -23,13 +24,13 @@ return new class extends Migration {
             $table->id();
             $table->unsignedDecimal('amount', 10);
             $table->string('description', 100)->nullable();
-            $table->enum('type', ["INCOME", "EXPENSE", "CREDIT_CARD_EXPENSE"]);
-            $table->dateTime('datetime');
+            $table->enum('type', ["INCOME", "EXPENSE"]);
+            $table->date('date');
             $table->string('notes', 100)->nullable();
             $table->string('currency', 15);
+            $table->timestamps();
 
-            $table->foreignId('account_id')->nullable()->constrained('accounts')->onDelete('cascade');
-            $table->foreignId('credit_card_id')->nullable()->constrained('credit_cards')->onDelete('cascade');
+            $table->foreignId('account_id')->constrained('accounts')->onDelete('cascade');
             $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('cascade');
         });
     }

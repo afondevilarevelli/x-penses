@@ -12,8 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            BankSeeder::class,
-            CreditCardTypeSeeder::class
+            BankSeeder::class
         ]);
     }
 }

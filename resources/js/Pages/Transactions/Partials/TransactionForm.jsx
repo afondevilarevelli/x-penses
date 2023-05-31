@@ -3,7 +3,7 @@ import { useForm, usePage } from "@inertiajs/react";
 import CurrencyInputField from "@/Components/CurrencyInputField";
 import Icon from "@/Components/Icon";
 import { FaCalendar, FaQuestion } from "react-icons/fa";
-import DateTimeInput from "@/Components/DatetimeInput";
+import DateInput from "@/Components/DateInput";
 
 export default function TransactionForm({
     transaction,
@@ -16,13 +16,14 @@ export default function TransactionForm({
         useForm({
             amount: transaction ? transaction.amount : "",
             description: transaction ? transaction.description : "",
-            datetime: transaction ? new Date(transaction.datetime) : "",
+            date: transaction ? new Date(transaction.date) : "",
             type: transaction
                 ? transaction.type
                 : transactionType
                 ? transactionType
                 : "",
             category_id: transaction ? transaction.category_id : "",
+            notes: transaction ? transaction.notes : "",
         });
 
     const submit = (e) => {
@@ -50,7 +51,7 @@ export default function TransactionForm({
                 error={errors.amount}
                 leftIcon={"$"}
                 inputClass={
-                    transaction.type == "INCOME"
+                    data.type == "INCOME"
                         ? "text-success placeholder-success"
                         : "text-error placeholder-error"
                 }
@@ -67,8 +68,7 @@ export default function TransactionForm({
                     className={`input ${
                         errors.description ? "input-error" : "input-bordered"
                     }`}
-                    value={data.name}
-                    autoComplete="new-password"
+                    value={data.description}
                     onChange={(e) => setData("description", e.target.value)}
                 />
                 {errors.description && (
@@ -81,7 +81,7 @@ export default function TransactionForm({
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-4">
-                <div className="form-control mt-4">
+                <div className="form-control">
                     <label className="label">
                         <span className="label-text">Category</span>
                     </label>
@@ -128,15 +128,35 @@ export default function TransactionForm({
                     )}
                 </div>
 
-                <div className="form-control mt-4">
-                    <DateTimeInput
+                <div className="form-control">
+                    <DateInput
                         label={"Date"}
-                        value={data.datetime}
-                        error={errors.datetime}
-                        onChange={(val) => setData("datetime", val)}
+                        value={data.date}
+                        error={errors.date}
+                        onChange={(val) => setData("date", val)}
                         leftIcon={<FaCalendar />}
                     />
                 </div>
+            </div>
+
+            <div className="form-control mt-4">
+                <label className="label">
+                    <span className="label-text">Additional notes</span>
+                </label>
+                <input
+                    className={`input ${
+                        errors.notes ? "input-error" : "input-bordered"
+                    }`}
+                    value={data.notes}
+                    onChange={(e) => setData("notes", e.target.value)}
+                />
+                {errors.notes && (
+                    <label className="label">
+                        <span className="label-text-alt text-error">
+                            {errors.notes}
+                        </span>
+                    </label>
+                )}
             </div>
 
             <div className="flex items-center justify-end mt-4 gap-4">

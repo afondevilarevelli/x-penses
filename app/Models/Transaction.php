@@ -10,24 +10,16 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
         "amount",
         "description",
         "type",
-        "datetime",
+        "date",
         "notes",
         "currency",
         "account_id",
-        "credit_card_id",
         "category_id",
     ];
-
-    public function creditCard(): HasOne
-    {
-        return $this->hasOne(CreditCard::class);
-    }
 
     public function account(): HasOne
     {

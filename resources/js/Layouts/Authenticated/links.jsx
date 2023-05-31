@@ -30,7 +30,7 @@ const links = [
     },
     {
         label: "Credit cards",
-        route: "credit-cards.index",
+        // route: "credit-cards.index",
         icon: <FaRegCreditCard {...iconStyle} />,
     },
     {

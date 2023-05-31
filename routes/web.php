@@ -5,7 +5,6 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AccountsController;
 use App\Http\Controllers\TransactionsController;
-use App\Http\Controllers\CreditCardsController;
 use App\Http\Controllers\ReportsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -28,9 +27,7 @@ Route::get('/', function () {
 
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        'canRegister' => Route::has('register')
     ]);
 });
 
@@ -49,8 +46,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('transactions', TransactionsController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::get('transactions/incomes', [TransactionsController::class, 'incomes'])->name('transactions.incomes.index');
     Route::get('transactions/expenses', [TransactionsController::class, 'expenses'])->name('transactions.expenses.index');
-
-    Route::get('/credit-cards', [CreditCardsController::class, 'index'])->name('credit-cards.index');
 
     Route::get('/reports', [ReportsController::class, 'index'])->name('reports.index');
 

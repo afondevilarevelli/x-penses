@@ -41,7 +41,7 @@ class AccountsController extends Controller
                     "amount" => abs($amount),
                     "description" => 'Initial account amount',
                     "type" => $amount > 0 ? "INCOME" : 'EXPENSE',
-                    "datetime" => now(),
+                    "date" => now(),
                     "currency" => "USD",
                     "account_id" => $accountCreated->id
                 ]);
@@ -74,7 +74,7 @@ class AccountsController extends Controller
                     "amount" => abs($diff),
                     "description" => 'Modify account amount',
                     "type" => $amount > $currentAmount ? "INCOME" : 'EXPENSE',
-                    "datetime" => now(),
+                    "date" => now(),
                     "currency" => "USD",
                     "account_id" => $account->id
                 ]);

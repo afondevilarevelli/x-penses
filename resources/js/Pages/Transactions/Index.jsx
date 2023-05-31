@@ -35,11 +35,7 @@ export const filterLinks = [
     },
 ];
 
-export default function Transactions({
-    transactions,
-    categories,
-    creditCards,
-}) {
+export default function Transactions({ transactions, categories }) {
     const [transactionToEdit, setTransactionToEdit] = useState(null);
     const [transactionFormOpened, setTransactionFormOpened] = useState(false);
 
@@ -88,13 +84,16 @@ export default function Transactions({
                             className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
                         >
                             {filterLinks.map((link, idx) => (
-                                <li className="flex flex-row items-center">
+                                <li
+                                    key={idx}
+                                    className="flex flex-row items-center"
+                                >
                                     <Link
                                         href={route(link.route)}
                                         className="w-full"
                                     >
                                         <div
-                                            className={`h-6 w-6 rounded-full bg-${link.color}`}
+                                            className={`h-6 w-6 rounded-full bg-${link.color} btn-success`}
                                         ></div>
                                         {link.label}
                                     </Link>
@@ -117,7 +116,7 @@ export default function Transactions({
                 <Table
                     data={transactions.map((trans) => ({
                         id: trans.id,
-                        date: new Date(trans.datetime).toLocaleString(),
+                        date: new Date(trans.date).toLocaleString(),
                         description: trans.description,
                         amount: trans.amount.toLocaleString(),
                         type: (

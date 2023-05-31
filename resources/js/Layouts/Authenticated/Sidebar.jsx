@@ -27,13 +27,17 @@ export default function Sidebar() {
                     {sidebarOpened && <div className="text-2xl">New</div>}
                 </button>
 
-                <ul className="w-full">
+                <ul className="menu w-full">
                     {links.map((item, idx) => (
-                        <li key={idx}>
+                        <li key={idx} className={!item.route ? "disabled" : ""}>
                             <Link
-                                href={route(item.route)}
+                                href={
+                                    item.route ? route(item.route) : undefined
+                                }
                                 className={`${
-                                    route().current(item.route) ? "active" : ""
+                                    item.route && route().current(item.route)
+                                        ? "active"
+                                        : ""
                                 }`}
                                 onClick={() => {
                                     if (window.innerWidth < 1024)

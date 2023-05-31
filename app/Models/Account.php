@@ -12,19 +12,12 @@ class Account extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     protected $fillable = [
         "name",
         "color",
         "bank_id",
         "user_id"
     ];
-
-    public function creditCards(): HasMany
-    {
-        return $this->hasMany(CreditCard::class);
-    }
 
     public function transactions(): HasMany
     {
@@ -43,7 +36,7 @@ class Account extends Model
             ->selectRaw(
                 "SUM(CASE WHEN type = 'INCOME' THEN transactions.amount ELSE -1*transactions.amount END) AS amount"
             )
-            ->where('datetime', '<=', now())
+            ->where('date', '<=', now())
             ->groupBy('accounts.id')->first();
 
         if (!$amount)

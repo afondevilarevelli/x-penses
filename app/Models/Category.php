@@ -15,8 +15,6 @@ class Category extends Model
         "user_id"
     ];
 
-    public $timestamps = false;
-
     public static function CreateDefaults(User $user)
     {
         $default_categories = [

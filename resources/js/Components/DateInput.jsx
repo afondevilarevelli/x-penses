@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaCalendar, FaTimes } from "react-icons/fa";
 
-export default function DateTimeInput({
+export default function DateInput({
     label,
     value,
     onChange,
@@ -18,16 +18,8 @@ export default function DateTimeInput({
                 : `${value.getMonth()}`;
         const formattedDays =
             value.getDay() < 10 ? `0${value.getDay()}` : `${value.getDay()}`;
-        const formattedHours =
-            value.getHours() < 10
-                ? `0${value.getHours()}`
-                : `${value.getHours()}`;
-        const formattedMinutes =
-            value.getMinutes() < 10
-                ? `0${value.getMinutes()}`
-                : `${value.getMinutes()}`;
 
-        return `${value.getFullYear()}-${formattedMonth}-${formattedDays}T${formattedHours}:${formattedMinutes}`;
+        return `${value.getFullYear()}-${formattedMonth}-${formattedDays}`;
     }
 
     return (
@@ -39,7 +31,7 @@ export default function DateTimeInput({
                 {leftIcon && <span>{leftIcon}</span>}
 
                 <input
-                    type="datetime-local"
+                    type="date"
                     value={formatDate()}
                     onChange={(ev) =>
                         onChange(new Date(ev.currentTarget.value))
