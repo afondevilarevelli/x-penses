@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 
 class Account extends Model
@@ -24,9 +24,9 @@ class Account extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    public function bank(): HasOne
+    public function bank(): BelongsTo
     {
-        return $this->hasOne(Bank::class);
+        return $this->belongsTo(Bank::class);
     }
 
     public function getAmount()

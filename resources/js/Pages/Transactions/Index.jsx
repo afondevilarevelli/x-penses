@@ -101,16 +101,20 @@ export default function Transactions({ transactions, categories, accounts }) {
                             ))}
                         </ul>
                     </div>
-                    <button
-                        className="btn btn-primary self-end space-x-2"
-                        onClick={() => {
-                            setTransactionToEdit(null);
-                            setTransactionFormOpened(true);
-                        }}
-                    >
-                        <div>Create</div>
-                        <FaPlus />
-                    </button>
+                    {getActiveFilterLink().type ? (
+                        <button
+                            className="btn btn-primary self-end space-x-2"
+                            onClick={() => {
+                                setTransactionToEdit(null);
+                                setTransactionFormOpened(true);
+                            }}
+                        >
+                            <div>Create</div>
+                            <FaPlus />
+                        </button>
+                    ) : (
+                        ""
+                    )}
                 </div>
 
                 <Table

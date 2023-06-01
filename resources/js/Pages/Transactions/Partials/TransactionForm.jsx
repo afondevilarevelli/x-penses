@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import { useForm, usePage } from "@inertiajs/react";
 import CurrencyInputField from "@/Components/CurrencyInputField";
 import Icon from "@/Components/Icon";
-import { FaCalendar, FaQuestion } from "react-icons/fa";
+import {
+    FaCalendar,
+    FaDollarSign,
+    FaQuestion,
+    FaUniversity,
+} from "react-icons/fa";
 import DateInput from "@/Components/DateInput";
 
 export default function TransactionForm({
@@ -11,7 +16,7 @@ export default function TransactionForm({
     onSubmittedSuccesfully = () => {},
     onCancel = () => {},
 }) {
-    const { categories } = usePage().props;
+    const { accounts, categories } = usePage().props;
     const { data, setData, put, post, errors, processing, recentlySuccessful } =
         useForm({
             amount: transaction ? transaction.amount : "",
@@ -23,6 +28,7 @@ export default function TransactionForm({
                 ? transactionType
                 : "",
             category_id: transaction ? transaction.category_id : "",
+            account_id: transaction ? transaction.account_id : "",
             notes: transaction ? transaction.notes : "",
         });
 
@@ -42,6 +48,13 @@ export default function TransactionForm({
         return categories.find((c) => c.id == id);
     }
 
+    function getAccount(id) {
+        return accounts.find((a) => a.id == id);
+    }
+
+    const categorySelected = getCategory(data.category_id);
+    const accountSelected = getAccount(data.account_id);
+
     return (
         <form onSubmit={submit} className="mt-6 space-y-6">
             <CurrencyInputField
@@ -49,7 +62,7 @@ export default function TransactionForm({
                 value={data.amount}
                 placeholder="0"
                 error={errors.amount}
-                leftIcon={"$"}
+                leftIcon={<FaDollarSign />}
                 inputClass={
                     data.type == "INCOME"
                         ? "text-success placeholder-success"
@@ -59,6 +72,52 @@ export default function TransactionForm({
                     setData("amount", val);
                 }}
             />
+
+            <div className="form-control">
+                <label className="label">
+                    <span className="label-text">Account</span>
+                </label>
+                <label className="input-group pr-12">
+                    <span className={accountSelected ? "contents" : ""}>
+                        {accountSelected ? (
+                            <img
+                                src={accountSelected.bank.image}
+                                alt={accountSelected.bank.name}
+                                className="w-9 h-9 mx-[0.35rem] p-1 my-auto"
+                            />
+                        ) : (
+                            <Icon name={"FaUniversity"} size={15} />
+                        )}
+                    </span>
+                    <select
+                        className={`select w-full ${
+                            errors.account_id
+                                ? "select-error"
+                                : "select-bordered"
+                        }`}
+                        placeholder="Select"
+                        onChange={(e) => setData("account_id", e.target.value)}
+                        value={data.account_id}
+                    >
+                        <option disabled value={""}>
+                            Select
+                        </option>
+                        {accounts.map((account) => (
+                            <option key={account.id} value={account.id}>
+                                {account.name}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+
+                {errors.category_id && (
+                    <label className="label">
+                        <span className="label-text-alt text-error">
+                            {errors.category_id}
+                        </span>
+                    </label>
+                )}
+            </div>
 
             <div className="form-control mt-4">
                 <label className="label">
@@ -87,11 +146,8 @@ export default function TransactionForm({
                     </label>
                     <label className="input-group pr-12">
                         <span>
-                            {getCategory(data.category_id) ? (
-                                <Icon
-                                    name={getCategory(data.category_id).icon}
-                                    size={15}
-                                />
+                            {categorySelected ? (
+                                <Icon name={categorySelected.icon} size={15} />
                             ) : (
                                 <Icon name={"FaQuestion"} size={15} />
                             )}

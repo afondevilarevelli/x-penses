@@ -10,7 +10,7 @@ export default function DateInput({
     inputClass = "",
 }) {
     function formatDate() {
-        if (!value) return null;
+        if (!value) return "";
 
         const formattedMonth =
             value.getMonth() < 10
