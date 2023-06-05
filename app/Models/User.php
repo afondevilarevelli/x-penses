@@ -57,7 +57,7 @@ class User extends Authenticatable
 
     public function getAccountsWithData()
     {
-        $user_accounts = $this->accounts()->get();
+        $user_accounts = $this->accounts()->with('bank')->get();
 
         foreach ($user_accounts as $account) {
             $account['amount'] = $account->getAmount();

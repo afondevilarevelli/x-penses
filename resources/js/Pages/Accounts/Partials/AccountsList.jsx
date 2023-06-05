@@ -3,12 +3,15 @@ import React, { useState } from "react";
 import { FaEllipsisV, FaPlus } from "react-icons/fa";
 import AccountForm from "./AccountForm";
 import { router, usePage } from "@inertiajs/react";
+import TransactionForm from "@/Pages/Transactions/Partials/TransactionForm";
 
 const AccountListItem = ({ account, onEdit, onRemove }) => {
     const { banks } = usePage().props;
 
     const [confirmationModalOpened, setConfirmationModalOpened] =
         useState(false);
+
+    const [transactionFormOpened, setTransactionFormOpened] = useState(false);
 
     const bank = banks.find((b) => b.id == account.bank_id);
 
@@ -66,7 +69,10 @@ const AccountListItem = ({ account, onEdit, onRemove }) => {
                 <div className="divider mb-0 opacity-30 before:bg-base-content after:bg-base-content"></div>
 
                 <div className="card-actions justify-end">
-                    <button className="btn btn-primary btn-sm">
+                    <button
+                        className="btn btn-primary btn-sm"
+                        onClick={() => setTransactionFormOpened(true)}
+                    >
                         Add expense
                     </button>
                 </div>
@@ -96,6 +102,21 @@ const AccountListItem = ({ account, onEdit, onRemove }) => {
                         Remove
                     </button>
                 </div>
+            </Modal>
+
+            <Modal
+                show={transactionFormOpened}
+                onClose={() => setTransactionFormOpened(false)}
+                title={"New expense"}
+            >
+                <TransactionForm
+                    account={account}
+                    transactionType={"EXPENSE"}
+                    onSubmittedSuccesfully={() =>
+                        setTransactionFormOpened(false)
+                    }
+                    onCancel={() => setTransactionFormOpened(false)}
+                />
             </Modal>
         </div>
     );

@@ -16,12 +16,14 @@ class AccountsController extends Controller
     public function index()
     {
         $user_accounts = auth()->user()->getAccountsWithData();
+        $user_categories = auth()->user()->categories()->get();
 
         $banks = Bank::get();
 
         return inertia('Accounts/Index', [
             "accounts" => $user_accounts,
-            "banks" => $banks
+            "banks" => $banks,
+            "categories" => $user_categories
         ]);
     }
 

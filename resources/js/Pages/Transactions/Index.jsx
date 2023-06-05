@@ -176,11 +176,11 @@ export default function Transactions({ transactions, categories, accounts }) {
             <Modal
                 show={transactionFormOpened}
                 onClose={closeModal}
-                title={
-                    transactionToEdit
-                        ? "Edit transaction"
-                        : "Create transaction"
-                }
+                title={`${transactionToEdit ? "Edit" : "New"} ${
+                    getActiveFilterLink().type == "INCOME"
+                        ? "income"
+                        : "expense"
+                }`}
             >
                 <TransactionForm
                     transaction={transactionToEdit}

@@ -13,6 +13,7 @@ import DateInput from "@/Components/DateInput";
 export default function TransactionForm({
     transaction,
     transactionType = null,
+    account = null,
     onSubmittedSuccesfully = () => {},
     onCancel = () => {},
 }) {
@@ -28,8 +29,13 @@ export default function TransactionForm({
                 ? transactionType
                 : "",
             category_id: transaction ? transaction.category_id : "",
-            account_id: transaction ? transaction.account_id : "",
+            account_id: transaction
+                ? transaction.account_id
+                : account
+                ? account.id
+                : "",
             notes: transaction ? transaction.notes : "",
+            currency: transaction ? transaction.currency : "USD",
         });
 
     const submit = (e) => {
@@ -90,7 +96,8 @@ export default function TransactionForm({
                         )}
                     </span>
                     <select
-                        className={`select w-full ${
+                        disabled={account}
+                        className={`select disabled w-full ${
                             errors.account_id
                                 ? "select-error"
                                 : "select-bordered"
@@ -110,10 +117,10 @@ export default function TransactionForm({
                     </select>
                 </label>
 
-                {errors.category_id && (
+                {errors.account_id && (
                     <label className="label">
                         <span className="label-text-alt text-error">
-                            {errors.category_id}
+                            {errors.account_id}
                         </span>
                     </label>
                 )}

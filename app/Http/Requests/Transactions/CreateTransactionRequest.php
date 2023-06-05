@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Transactions;
 
+use DebugBar\DebugBar;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateTransactionRequest extends FormRequest
@@ -11,7 +12,11 @@ class CreateTransactionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        $account_id = request()['account_id'];
+        if (!$account_id)
+            return false;
+
+        return $this->user()->accounts()->where('id', $account_id)->count() == 1;
     }
 
     /**
@@ -22,7 +27,14 @@ class CreateTransactionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'amount' => ['numeric', 'between:-9999999999,9999999999', 'required'],
+            'description' => ['string', 'max:100', 'nullable'],
+            'type' => ['in:INCOME,EXPENSE', 'required'],
+            'date' => ['date', 'required'],
+            'notes' => ['string', 'max:100', 'nullable'],
+            'currency' => ['string', 'max:15', 'required'],
+            'account_id' => ['exists:accounts,id', 'required'],
+            'category_id' => ['exists:categories,id', 'required'],
         ];
     }
 }

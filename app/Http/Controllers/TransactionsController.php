@@ -53,13 +53,13 @@ class TransactionsController extends Controller
         $validated = $request->validated();
 
         try {
-            Transaction::insert([...$validated, 'user_id' => auth()->user()->id]);
-            session()->flash("success", "Transaction '" . $validated['name'] . "' created succesfully");
+            Transaction::insert($validated);
+            session()->flash("success", "Transaction created succesfully");
         } catch (Exception $e) {
-            session()->flash("error", "Error while creating transaction '" . $validated['name']);
+            session()->flash("error", $e); //"Error while creating transaction");
         }
 
-        return redirect(route('transactions.index'));
+        return redirect()->back();
     }
 
     public function update(EditTransactionRequest $request, Transaction $transaction)
@@ -67,12 +67,12 @@ class TransactionsController extends Controller
         try {
             $validated = $request->validated();
             $transaction->update($validated);
-            session()->flash("success", "Transaction '" . $validated['name'] . "' updated succesfully");
+            session()->flash("success", "Transaction updated succesfully");
         } catch (Exception $e) {
-            session()->flash("error", "Error while updating transaction '" . $transaction['name'] . "'");
+            session()->flash("error", "Error while updating transaction");
         }
 
-        return redirect(route('transaction.index'));
+        return redirect(route('transactions.index'));
     }
 
     public function destroy($id)
@@ -88,6 +88,6 @@ class TransactionsController extends Controller
             session()->flash("error", "Error while deleting transaction");
         }
 
-        return redirect(route('transaction.index'));
+        return redirect(route('transactions.index'));
     }
 }
