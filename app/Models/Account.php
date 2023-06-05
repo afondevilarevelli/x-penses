@@ -32,7 +32,7 @@ class Account extends Model
     public function getAmount()
     {
         $amount = DB::table('accounts')->where('accounts.id', $this->id)
-            ->join('transactions', 'accounts.id', '=', 'transactions.account_id')
+            ->join('transactions', 'accounts.id', 'transactions.account_id')
             ->selectRaw(
                 "SUM(CASE WHEN type = 'INCOME' THEN transactions.amount ELSE -1*transactions.amount END) AS amount"
             )
