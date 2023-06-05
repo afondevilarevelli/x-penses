@@ -11,11 +11,7 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        $user_categories = auth()->user()->categories()->orderBy('updated_at')->get();
-
-        return inertia('Categories/Index', [
-            "categories" => $user_categories
-        ]);
+        return inertia('Categories/Index');
     }
 
     public function store(CreateCategoryRequest $request)

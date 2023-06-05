@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
 
@@ -30,6 +31,20 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        Inertia::share(
+            'categories',
+            fn(Request $request) => $request->user()
+            ? $request->user()->categories()->orderBy('name')->get()
+            : null
+        );
+
+        Inertia::share(
+            'accounts',
+            fn(Request $request) => $request->user()
+            ? $request->user()->accounts()->with('bank')->get()
+            : null
+        );
+
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
