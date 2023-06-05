@@ -77,7 +77,9 @@ class TransactionsController extends Controller
 
     public function destroy($id)
     {
-        $transaction = Transaction::where('id', $id)->where('user_id', auth()->user()->id)->first();
+        $transaction = Transaction::join('accounts', 'accounts.id', 'transactions.account_id')
+            ->where('transactions.id', $id)
+            ->where('accounts.user_id', auth()->user()->id)->first();
 
         abort_if(!$transaction, 403);
 
