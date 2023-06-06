@@ -14,7 +14,10 @@ class DashboardService
             "incomesBalance" => self::getIncomesBalance(),
             "expensesBalance" => self::getExpensesBalance(),
             "expensesByCategory" => self::getExpensesByCategory(),
-            "incomesByCategory" => self::getIncomesByCategory()
+            "incomesByCategory" => self::getIncomesByCategory(),
+
+            "monthlyExpenses" => self::getCurrentMonthlyBalance("EXPENSE"),
+            "monthlyIncomes" => self::getCurrentMonthlyBalance("INCOME")
         ];
     }
 
@@ -92,4 +95,27 @@ class DashboardService
             ->where('date', '<=', now())
             ->groupBy('transactions.category_id')->get();
     }
+
+    private static function getCurrentMonthlyBalance($type = null)
+    {
+
+        $query = DB::table('accounts')->where('accounts.user_id', auth()->id())
+            ->join('transactions', 'accounts.id', 'transactions.account_id')
+            ->selectRaw(
+                "SUM(transactions.amount) AS amount"
+            )
+            ->whereYear('date', now()->year)
+            ->whereMonth('date', now()->month);
+
+        if ($type)
+            $query = $query->where('type', $type);
+
+        $amount = $query->groupBy('accounts.user_id')->first();
+
+        if (!$amount)
+            return 0.;
+
+        return (float) $amount->amount;
+    }
+
 }

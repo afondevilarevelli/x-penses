@@ -2,6 +2,7 @@ import AuthenticatedLayout from "@/Layouts/Authenticated/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import { FaArrowDown, FaArrowUp, FaUniversity } from "react-icons/fa";
 import TransactionsByCategoryChart from "./Partials/TransactionsByCategoryChart";
+import MonthlyBalance from "./Partials/MonthlyBalance";
 
 export default function Dashboard({
     balance,
@@ -70,6 +71,15 @@ export default function Dashboard({
                                 groupedByCategory={incomesByCategory}
                             />
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex flex-col gap-4 w-1/2 mt-12">
+                <h2 className="font-semibold text-2xl">Monthly balance</h2>
+                <div className="bg-base-200 w-full py-4 rounded-md">
+                    <div className="w-full">
+                        <MonthlyBalance />
                     </div>
                 </div>
             </div>
