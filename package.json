@@ -20,7 +20,9 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "chart.js": "^4.3.0",
         "daisyui": "^2.51.6",
+        "react-chartjs-2": "^5.2.0",
         "react-color": "^2.19.3",
         "react-currency-input-field": "^3.6.10",
         "react-icons": "^4.8.0"

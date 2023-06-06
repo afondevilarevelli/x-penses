@@ -9,6 +9,6 @@ class DashboardController extends Controller
     public function index()
     {
         $data = DashboardService::getDashboardData();
-        return inertia('Dashboard', $data);
+        return inertia('Dashboard/Index', $data);
     }
 }

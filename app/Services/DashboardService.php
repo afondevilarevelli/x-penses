@@ -12,7 +12,9 @@ class DashboardService
         return [
             "balance" => self::getBalance(),
             "incomesBalance" => self::getIncomesBalance(),
-            "expensesBalance" => self::getExpensesBalance()
+            "expensesBalance" => self::getExpensesBalance(),
+            "expensesByCategory" => self::getExpensesByCategory(),
+            "incomesByCategory" => self::getIncomesByCategory()
         ];
     }
 
@@ -64,5 +66,30 @@ class DashboardService
             return 0.;
 
         return (float) $amount->amount;
+    }
+
+    private static function getExpensesByCategory()
+    {
+        return DB::table('accounts')->where('accounts.user_id', auth()->id())
+            ->join('transactions', 'accounts.id', 'transactions.account_id')
+            ->selectRaw(
+                "transactions.category_id, " .
+                "SUM(transactions.amount) AS amount"
+            )
+            ->where('type', 'EXPENSE')
+            ->where('date', '<=', now())
+            ->groupBy('transactions.category_id')->get();
+    }
+    private static function getIncomesByCategory()
+    {
+        return DB::table('accounts')->where('accounts.user_id', auth()->id())
+            ->join('transactions', 'accounts.id', 'transactions.account_id')
+            ->selectRaw(
+                "transactions.category_id, " .
+                "SUM(transactions.amount) AS amount"
+            )
+            ->where('type', 'INCOME')
+            ->where('date', '<=', now())
+            ->groupBy('transactions.category_id')->get();
     }
 }
