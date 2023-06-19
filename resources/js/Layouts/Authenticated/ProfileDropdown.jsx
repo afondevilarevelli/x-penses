@@ -7,7 +7,7 @@ export default function ProfileDropdown() {
     const user = useUser();
 
     return (
-        <div className="dropdown">
+        <div className="dropdown cursor-pointer">
             <span tabIndex={0} className="inline-flex rounded-md items-center">
                 <div className="avatar placeholder">
                     <div className="bg-base-100 text-base-content rounded-full w-10 h-10">
