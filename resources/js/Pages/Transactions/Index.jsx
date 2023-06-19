@@ -120,7 +120,7 @@ export default function Transactions({ transactions, categories, accounts }) {
                 <Table
                     data={transactions.map((trans) => ({
                         id: trans.id,
-                        date: new Date(trans.date).toLocaleString(),
+                        date: new Date(trans.date).toLocaleDateString(),
                         description: trans.description,
                         amount: trans.amount.toLocaleString(),
                         type: (
@@ -136,11 +136,15 @@ export default function Transactions({ transactions, categories, accounts }) {
                         account: accounts.find((a) => a.id == trans.account_id)
                             .name,
                         category: (
-                            <div>
+                            <div
+                                className="tooltip"
+                                data-tip={getCategory(trans).name}
+                            >
                                 {getCategory(trans) ? (
                                     <Icon
                                         name={getCategory(trans).icon}
                                         size={40}
+                                        color={getCategory(trans).color}
                                     />
                                 ) : (
                                     "-"
