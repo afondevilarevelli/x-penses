@@ -6,8 +6,6 @@ export default function MonthlyBalance() {
 
     const totalBalance = monthlyIncomes - monthlyExpenses;
 
-    console.log(totalBalance);
-
     const incomesPercentage = Math.round(
         (100 * monthlyIncomes) / (monthlyIncomes + monthlyExpenses)
     );

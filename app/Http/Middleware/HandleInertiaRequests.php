@@ -54,6 +54,9 @@ class HandleInertiaRequests extends Middleware
                     'location' => $request->url(),
                 ]);
             },
+            'locale' => function () {
+                return app()->getLocale();
+            },
             'flash' => [
                 'info' => fn() => $request->session()->get('info'),
                 'success' => fn() => $request->session()->get('success'),
