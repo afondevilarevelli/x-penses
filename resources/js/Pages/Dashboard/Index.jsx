@@ -48,7 +48,7 @@ export default function Dashboard({
                 </div>
             </div>
 
-            <div className="flex justify-evenly flex-wrap lg:flex-nowrap gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-12 gap-x-12">
                 <div className="flex flex-col gap-4 w-full">
                     <h2 className="font-semibold text-2xl">
                         Expenses by category
@@ -73,13 +73,12 @@ export default function Dashboard({
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div className="flex flex-col gap-4 w-1/2 mt-12">
-                <h2 className="font-semibold text-2xl">Monthly balance</h2>
-                <div className="bg-base-200 w-full py-4 rounded-md">
-                    <div className="w-full">
-                        <MonthlyBalance />
+                <div className="flex flex-col w-full gap-4">
+                    <h2 className="font-semibold text-2xl">Monthly balance</h2>
+                    <div className="bg-base-200 w-full py-4 rounded-md">
+                        <div className="w-full">
+                            <MonthlyBalance />
+                        </div>
                     </div>
                 </div>
             </div>
